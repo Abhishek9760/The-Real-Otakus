@@ -3,7 +3,7 @@ import React from 'react';
 import SafeArea from '../components/utils/SafeArea';
 import styled from 'styled-components/native';
 
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Feather';
 
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {Colors} from 'react-native-paper';

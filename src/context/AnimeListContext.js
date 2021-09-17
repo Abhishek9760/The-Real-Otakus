@@ -1,11 +1,9 @@
-import React, {createContext, useState, useEffect, useContext} from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import {showToast} from '../utils';
-import {ConnectionContext} from './ConnectionContext';
 
 export const AnimeListContext = createContext();
 
 export const AnimeListContextProvider = ({children}) => {
-  const {updateConnection} = useContext(ConnectionContext);
   const [animeList, setAnimeList] = useState([]);
   const [animeListModal, setAnimeListModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -13,7 +11,6 @@ export const AnimeListContextProvider = ({children}) => {
   const [popular, setPopular] = useState([]);
 
   useEffect(() => {
-    updateConnection();
     setLoading(true);
     fetch('https://fathomless-coast-98646.herokuapp.com/popular/')
       .then(res => res.json())
@@ -24,12 +21,11 @@ export const AnimeListContextProvider = ({children}) => {
       .catch(err => {
         setLoading(false);
         console.log(err);
+        showToast(err.message);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getAnime = query => {
-    updateConnection();
     setLoading(true);
     fetch(`https://fathomless-coast-98646.herokuapp.com/search/${query}/`)
       .then(res => res.json())

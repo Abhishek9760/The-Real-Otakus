@@ -31,7 +31,7 @@ function HomeScreen() {
 
 const Backdrop = styled.View`
   flex: 1;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.8);
 `;
 
 const Container = styled.ImageBackground.attrs({

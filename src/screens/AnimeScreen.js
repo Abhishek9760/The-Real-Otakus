@@ -11,14 +11,12 @@ function AnimeScreen({route}) {
   useEffect(() => {
     let isCancelled = false;
     setLoading(true);
-    getAnimeInfo(anime.source)
-      .then(data => {
-        if (!isCancelled) {
-          setAnimeEpisodes(data);
-          setLoading(false);
-        }
-      })
-      .catch(err => console.log(err));
+    getAnimeInfo(anime.source).then(data => {
+      if (!isCancelled) {
+        setAnimeEpisodes(data);
+        setLoading(false);
+      }
+    });
     () => {
       isCancelled = true;
       setLoading(false);

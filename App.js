@@ -8,7 +8,6 @@ import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import Orientation from 'react-native-orientation';
 import {DrawerNavigator} from './src/navigation/DrawerNavigator';
 import {SearchContextProvider} from './src/context/SearchContext';
-import {ConnectionContextProvider} from './src/context/ConnectionContext';
 
 const App = () => {
   useEffect(() => {
@@ -30,19 +29,17 @@ const App = () => {
         barStyle="light-content"
         translucent
       />
-      <ConnectionContextProvider>
-        <AnimeListContextProvider>
-          <SearchContextProvider>
-            <AnimeDetailContextProvider>
-              <PlayerContextProvider>
-                <NavigationContainer>
-                  <DrawerNavigator />
-                </NavigationContainer>
-              </PlayerContextProvider>
-            </AnimeDetailContextProvider>
-          </SearchContextProvider>
-        </AnimeListContextProvider>
-      </ConnectionContextProvider>
+      <AnimeListContextProvider>
+        <SearchContextProvider>
+          <AnimeDetailContextProvider>
+            <PlayerContextProvider>
+              <NavigationContainer>
+                <DrawerNavigator />
+              </NavigationContainer>
+            </PlayerContextProvider>
+          </AnimeDetailContextProvider>
+        </SearchContextProvider>
+      </AnimeListContextProvider>
     </>
   );
 };
