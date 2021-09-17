@@ -18,7 +18,6 @@ const DrawerNavigator = () => {
       screenOptions={{
         headerTintColor: '#fff',
         headerStyle: {backgroundColor: Colors.deepPurple600},
-        headerRight: () => <SearchButton />,
 
         headerTitleStyle: {fontFamily: 'Stentiga'},
         drawerContentStyle: {backgroundColor: '#ffffff'},
@@ -33,6 +32,7 @@ const DrawerNavigator = () => {
         component={MainStackNavigator}
         options={{
           headerTitle: 'The Real Otakus',
+          headerRight: () => <SearchButton />,
         }}
       />
       <Drawer.Screen name="About" component={AboutStackNavigator} />

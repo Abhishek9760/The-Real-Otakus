@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useRef} from 'react';
 import {IconButton} from 'react-native-paper';
 import Modal from 'react-native-modal';
 import Search from './Search';
@@ -7,6 +7,7 @@ import {SearchContext} from '../context/SearchContext';
 
 function SearchButton() {
   const {showSearch, setShowSearch} = useContext(SearchContext);
+  const inpRef = useRef();
 
   const hideModal = () => setShowSearch(false);
   return (
@@ -16,9 +17,13 @@ function SearchButton() {
         useNativeDriver
         isVisible={showSearch}
         onBackButtonPress={hideModal}
-        onBackdropPress={hideModal}>
+        onBackdropPress={hideModal}
+        onModalShow={() => {
+          inpRef.current.blur();
+          inpRef.current.focus();
+        }}>
         <ModalContentView>
-          <Search />
+          <Search ref={inpRef} />
         </ModalContentView>
       </Modal>
       <IconButton

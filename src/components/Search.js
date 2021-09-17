@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, forwardRef} from 'react';
 import {Keyboard} from 'react-native';
 import {Searchbar} from 'react-native-paper';
 
@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 import {AnimeListContext} from '../context/AnimeListContext';
 import {SearchContext} from '../context/SearchContext';
 
-function Search() {
+const Search = forwardRef((props, ref) => {
   const [query, setQuery] = useState('');
   const {getAnime, setAnimeListModal} = useContext(AnimeListContext);
   const {setShowSearch} = useContext(SearchContext);
@@ -23,7 +23,7 @@ function Search() {
   return (
     <Container>
       <Searchbar
-        autoFocus
+        ref={ref}
         placeholder="SEARCH"
         value={query}
         onChangeText={setQuery}
@@ -31,7 +31,7 @@ function Search() {
       />
     </Container>
   );
-}
+});
 const Container = styled.View`
   flex: 1;
 `;
