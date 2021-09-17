@@ -18,6 +18,7 @@ function AboutScreen() {
     </BackgroundImage>
   );
 }
+
 const BackgroundImage = styled.ImageBackground.attrs({
   source: require('../../assets/images/drawer.jpg'),
 })`
