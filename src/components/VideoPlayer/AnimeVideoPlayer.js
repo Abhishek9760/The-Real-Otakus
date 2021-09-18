@@ -13,7 +13,6 @@ function AnimeVideoPlayer({url, navigator}) {
   const navigation = useNavigation();
 
   useEffect(() => {
-    // console.log(navigation);
     hideNavigationBar();
     Orientation.unlockAllOrientations();
 

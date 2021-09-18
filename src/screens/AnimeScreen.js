@@ -2,27 +2,22 @@ import React, {useContext, useEffect} from 'react';
 import styled from 'styled-components/native';
 import {AnimeDetailContext} from '../context/AnimeDetailContext';
 import AnimeDetail from '../components/AnimeDetail/AnimeDetail';
+import {SelectedAnimeContext} from '../context/SelectedAnimeContext';
 
 function AnimeScreen({route}) {
   const {anime} = route.params;
-  const {getAnimeInfo, setLoading, setAnimeEpisodes} =
-    useContext(AnimeDetailContext);
+  const {getAnimeInfo, setLoading} = useContext(AnimeDetailContext);
+
+  const {setAnime} = useContext(SelectedAnimeContext);
 
   useEffect(() => {
-    let isCancelled = false;
-    setLoading(true);
-    getAnimeInfo(anime.source).then(data => {
-      if (!isCancelled) {
-        setAnimeEpisodes(data);
-        setLoading(false);
-      }
-    });
+    setAnime(anime);
+    getAnimeInfo(anime.source);
     () => {
-      isCancelled = true;
       setLoading(false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [anime.source]);
+  }, []);
 
   return (
     <Container>

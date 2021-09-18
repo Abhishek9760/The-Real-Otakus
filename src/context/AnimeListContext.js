@@ -10,7 +10,7 @@ export const AnimeListContextProvider = ({children}) => {
   const [error, setError] = useState('');
   const [popular, setPopular] = useState([]);
 
-  useEffect(() => {
+  const getPopular = () => {
     setLoading(true);
     fetch('https://fathomless-coast-98646.herokuapp.com/popular/')
       .then(res => res.json())
@@ -21,8 +21,13 @@ export const AnimeListContextProvider = ({children}) => {
       .catch(err => {
         setLoading(false);
         console.log(err);
+        setError(err.message);
         showToast(err.message);
       });
+  };
+
+  useEffect(() => {
+    getPopular();
   }, []);
 
   const getAnime = query => {
@@ -34,14 +39,17 @@ export const AnimeListContextProvider = ({children}) => {
         setLoading(false);
         if (data.length === 0) {
           showToast('Not Found');
-          setError('Not Found');
         }
+        setError('');
       })
       .catch(err => {
         setLoading(false);
         setError(err.message);
+        showToast(err.message);
       });
   };
+
+  const reset = () => setAnimeList([]);
 
   return (
     <AnimeListContext.Provider
@@ -53,6 +61,8 @@ export const AnimeListContextProvider = ({children}) => {
         animeListModal,
         setAnimeListModal,
         popular,
+        getPopular,
+        reset,
       }}>
       {children}
     </AnimeListContext.Provider>

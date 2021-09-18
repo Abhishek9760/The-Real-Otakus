@@ -7,10 +7,9 @@ export const AnimeDetailContextProvider = ({children}) => {
   const [animeEpisodes, setAnimeEpisodes] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getAnimeInfo = async source => {
-    const controller = new AbortController();
-    // 10 second timeout:
-    setTimeout(() => controller.abort(), 10000);
+  const getAnimeInfo = source => {
+    let isCancelled = false;
+    setLoading(true);
     return fetch(
       `https://fathomless-coast-98646.herokuapp.com/episodes?source=${source}`,
       {
@@ -18,13 +17,18 @@ export const AnimeDetailContextProvider = ({children}) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: controller.signal,
       },
     )
       .then(res => res.json())
-      .then(data => data)
+      .then(data => {
+        if (!isCancelled && data) {
+          setAnimeEpisodes(data);
+          setLoading(false);
+        }
+      })
       .catch(err => {
         console.log(err);
+        setLoading(false);
         showToast(err.message);
       });
   };

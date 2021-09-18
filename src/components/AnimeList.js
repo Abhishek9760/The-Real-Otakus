@@ -7,7 +7,7 @@ import Loader from './utils/Loader';
 import LottieView from 'lottie-react-native';
 import {Colors} from 'react-native-paper';
 
-function AnimeList({animeList, title}) {
+function AnimeList({animeList, title, children}) {
   const {loading, error} = useContext(AnimeListContext);
   return (
     <Container>
@@ -24,13 +24,13 @@ function AnimeList({animeList, title}) {
           columnWrapperStyle={FlatListStyles.column}
         />
       ) : error.length !== 0 ? (
+        children
+      ) : (
         <LottieView
           source={require('../../assets/lottie/404.json')}
           autoPlay
           loop
         />
-      ) : (
-        <></>
       )}
     </Container>
   );

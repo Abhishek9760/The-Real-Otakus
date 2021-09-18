@@ -12,7 +12,7 @@ export const PlayerContextProvider = ({children}) => {
       `https://fathomless-coast-98646.herokuapp.com/episode?episode_link=${epLink}`,
     )
       .then(res => res.json())
-      .then(data => data)
+      .then(data => setVidUrls(data))
       .catch(err => {
         console.log(err);
         showToast(err.message);

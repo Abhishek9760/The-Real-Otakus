@@ -9,7 +9,10 @@ function AnimeDetail({anime}) {
   return (
     <Wrapper contentContainerStyle={styles.listContainerStyle}>
       <AnimeHeaderInfo anime={anime} />
-      <AnimeEpisodesDialogList totalEp={anime.total_episodes} />
+      <AnimeEpisodesDialogList
+        totalEp={anime.total_episodes}
+        source={anime.source}
+      />
       <Title>Plot Summary</Title>
       <Divider />
       <Paragraph>{anime.anime_info.plot_summary}</Paragraph>

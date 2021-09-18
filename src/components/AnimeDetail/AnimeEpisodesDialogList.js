@@ -1,4 +1,4 @@
-import React, {useState, useContext, useMemo} from 'react';
+import React, {useState, useContext, useMemo, useEffect} from 'react';
 import styled from 'styled-components/native';
 import {AnimeDetailContext} from '../../context/AnimeDetailContext';
 import {
@@ -14,9 +14,13 @@ import {Dimensions, FlatList} from 'react-native';
 import Modal from 'react-native-modal';
 import {useNavigation} from '@react-navigation/native';
 import {inRange, findLink} from '../../utils';
+import TryAgain from '../utils/TryAgain';
+import {SelectedAnimeContext} from '../../context/SelectedAnimeContext';
 
 function AnimeEpisodesDialogList({totalEp}) {
-  const {animeEpisodes, loading} = useContext(AnimeDetailContext);
+  const {animeEpisodes, loading, getAnimeInfo, setAnimeEpisodes} =
+    useContext(AnimeDetailContext);
+  const {anime} = useContext(SelectedAnimeContext);
   const [ep, setEp] = useState(''); // List state
   const [singleEp, setSingleEp] = useState(''); // Text input state
 
@@ -37,95 +41,105 @@ function AnimeEpisodesDialogList({totalEp}) {
 
   const memotizedRenderItem = useMemo(() => renderItem, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => () => setAnimeEpisodes([]), []);
+
   return (
     <>
       <Title>Watch</Title>
       <Divider />
       <Wrapper>
-        <Button
-          mode="text"
-          disabled={loading}
-          onPress={() => setShowListModal(true)}>
-          All Episodes
-        </Button>
-        <Button
-          mode="contained"
-          disabled={loading}
-          onPress={() => setShowSingleEpModal(true)}>
-          Watch Single Episode
-        </Button>
-        <Modal
-          hideModalContentWhileAnimating
-          useNativeDriver
-          isVisible={showSingleEpModal}
-          onBackButtonPress={() => setShowSingleEpModal(false)}
-          onBackdropPress={() => setShowSingleEpModal(false)}>
-          <Card>
-            <Card.Title title="Select single episode" />
-            <Card.Content>
-              <EpInput
-                keyboardType="decimal-pad"
-                value={singleEp}
-                onChangeText={val => {
-                  setDisabled(!inRange(animeEpisodes, val));
-                  setSingleEp(val);
-                }}
-                selection={{start: singleEp.length, end: singleEp.length}}
-                maxLength={maxLength}
-                placeholder="Enter episode no."
-                right={<TextInput.Affix text={`/${totalEp}`} />}
-              />
-              <Button
-                disabled={disabled}
-                mode="contained"
-                onPress={() => {
-                  setShowSingleEpModal(false);
-                  navigation.navigate('player', {
-                    link: findLink(animeEpisodes, singleEp),
-                  });
-                }}>
-                Watch
-              </Button>
-            </Card.Content>
-          </Card>
-        </Modal>
-        <Modal
-          propagateSwipe
-          useNativeDriver
-          hideModalContentWhileAnimating={true}
-          isVisible={showListModal}
-          onBackButtonPress={() => setShowListModal(false)}
-          onBackdropPress={() => setShowListModal(false)}>
-          <Card style={{maxHeight: Dimensions.get('window').height * 0.8}}>
-            <Card.Title title="Select Episode" />
-            <Dialog.ScrollArea>
-              <RadioButton.Group
-                onValueChange={value => setEp(value)}
-                value={ep}>
-                <FlatList
-                  data={animeEpisodes}
-                  keyExtractor={item => Object.keys(item)[0]}
-                  renderItem={memotizedRenderItem}
-                  initialNumToRender={10}
-                  maxToRenderPerBatch={5}
-                  updateCellsBatchingPeriod={10}
-                  windowSize={8}
-                />
-              </RadioButton.Group>
-            </Dialog.ScrollArea>
-            <Card.Actions>
-              <Button
-                disabled={true ? ep === '' : false}
-                onPress={() => {
-                  setShowListModal(false);
-                  navigation.navigate('player', {link: ep});
-                }}>
-                Watch
-              </Button>
-            </Card.Actions>
-          </Card>
-        </Modal>
+        {animeEpisodes.length === 0 ? (
+          <TryAgain
+            loading={loading}
+            reload={() => getAnimeInfo(anime.source)}
+          />
+        ) : (
+          <>
+            <Button
+              mode="text"
+              disabled={loading}
+              onPress={() => setShowListModal(true)}>
+              All Episodes
+            </Button>
+            <Button
+              mode="contained"
+              disabled={loading}
+              onPress={() => setShowSingleEpModal(true)}>
+              Watch Single Episode
+            </Button>
+          </>
+        )}
       </Wrapper>
+      <Modal
+        hideModalContentWhileAnimating
+        useNativeDriver
+        isVisible={showSingleEpModal}
+        onBackButtonPress={() => setShowSingleEpModal(false)}
+        onBackdropPress={() => setShowSingleEpModal(false)}>
+        <Card>
+          <Card.Title title="Select single episode" />
+          <Card.Content>
+            <EpInput
+              keyboardType="decimal-pad"
+              value={singleEp}
+              onChangeText={val => {
+                setDisabled(!inRange(animeEpisodes, val));
+                setSingleEp(val);
+              }}
+              selection={{start: singleEp.length, end: singleEp.length}}
+              maxLength={maxLength}
+              placeholder="Enter episode no."
+              right={<TextInput.Affix text={`/${totalEp}`} />}
+            />
+            <Button
+              disabled={disabled}
+              mode="contained"
+              onPress={() => {
+                setShowSingleEpModal(false);
+                navigation.navigate('player', {
+                  link: findLink(animeEpisodes, singleEp),
+                });
+              }}>
+              Watch
+            </Button>
+          </Card.Content>
+        </Card>
+      </Modal>
+      <Modal
+        propagateSwipe
+        useNativeDriver
+        hideModalContentWhileAnimating={true}
+        isVisible={showListModal}
+        onBackButtonPress={() => setShowListModal(false)}
+        onBackdropPress={() => setShowListModal(false)}>
+        <Card style={{maxHeight: Dimensions.get('window').height * 0.8}}>
+          <Card.Title title="Select Episode" />
+          <Dialog.ScrollArea>
+            <RadioButton.Group onValueChange={value => setEp(value)} value={ep}>
+              <FlatList
+                data={animeEpisodes}
+                keyExtractor={item => Object.keys(item)[0]}
+                renderItem={memotizedRenderItem}
+                initialNumToRender={10}
+                maxToRenderPerBatch={5}
+                updateCellsBatchingPeriod={10}
+                windowSize={8}
+              />
+            </RadioButton.Group>
+          </Dialog.ScrollArea>
+          <Card.Actions>
+            <Button
+              disabled={true ? ep === '' : false}
+              onPress={() => {
+                setShowListModal(false);
+                navigation.navigate('player', {link: ep});
+              }}>
+              Watch
+            </Button>
+          </Card.Actions>
+        </Card>
+      </Modal>
     </>
   );
 }

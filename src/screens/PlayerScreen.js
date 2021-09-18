@@ -9,9 +9,7 @@ function PlayerScreen({route}) {
 
   useEffect(() => {
     if (link) {
-      getVidDownloadLinks(link).then(data => {
-        setVidUrls(data);
-      });
+      getVidDownloadLinks(link);
     }
     return () => setVidUrls({});
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -8,6 +8,7 @@ import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import Orientation from 'react-native-orientation';
 import {DrawerNavigator} from './src/navigation/DrawerNavigator';
 import {SearchContextProvider} from './src/context/SearchContext';
+import {SelectedAnimeContextProvider} from './src/context/SelectedAnimeContext';
 
 const App = () => {
   useEffect(() => {
@@ -31,13 +32,15 @@ const App = () => {
       />
       <AnimeListContextProvider>
         <SearchContextProvider>
-          <AnimeDetailContextProvider>
-            <PlayerContextProvider>
-              <NavigationContainer>
-                <DrawerNavigator />
-              </NavigationContainer>
-            </PlayerContextProvider>
-          </AnimeDetailContextProvider>
+          <SelectedAnimeContextProvider>
+            <AnimeDetailContextProvider>
+              <PlayerContextProvider>
+                <NavigationContainer>
+                  <DrawerNavigator />
+                </NavigationContainer>
+              </PlayerContextProvider>
+            </AnimeDetailContextProvider>
+          </SelectedAnimeContextProvider>
         </SearchContextProvider>
       </AnimeListContextProvider>
     </>
