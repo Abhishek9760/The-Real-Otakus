@@ -9,6 +9,7 @@ import Orientation from 'react-native-orientation';
 import {DrawerNavigator} from './src/navigation/DrawerNavigator';
 import {SearchContextProvider} from './src/context/SearchContext';
 import {SelectedAnimeContextProvider} from './src/context/SelectedAnimeContext';
+import SplashScreen from 'react-native-splash-screen';
 
 const App = () => {
   useEffect(() => {
@@ -21,6 +22,7 @@ const App = () => {
     };
     changeColor();
     Orientation.lockToPortrait();
+    SplashScreen.hide();
   }, []);
   return (
     <>
