@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1005014192873",
+    "project_id": "reactnative-63aa1",
+    "storage_bucket": "reactnative-63aa1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005014192873:android:6e14a9eab68d4d0f95d678",
+        "android_client_info": {
+          "package_name": "com.therealotakus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005014192873-092hjbb84mqqj1p3o1s6ednkeqfth8ls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCEaz1luWot-UZGU_cWtBIvr1eYsYhPr8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005014192873-092hjbb84mqqj1p3o1s6ednkeqfth8ls.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-2113156158089069~1382351627"
+    }
+  ],
+  "configuration_version": "1"
+}

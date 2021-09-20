@@ -10,6 +10,7 @@ import {DrawerNavigator} from './src/navigation/DrawerNavigator';
 import {SearchContextProvider} from './src/context/SearchContext';
 import {SelectedAnimeContextProvider} from './src/context/SelectedAnimeContext';
 import SplashScreen from 'react-native-splash-screen';
+import analytics from '@react-native-firebase/analytics';
 
 const App = () => {
   useEffect(() => {
@@ -23,29 +24,28 @@ const App = () => {
     changeColor();
     Orientation.lockToPortrait();
     SplashScreen.hide();
+    // console.log(analytics().getAppInstanceId());
   }, []);
   return (
-    <>
-      <StatusBar
-        animated={true}
-        backgroundColor="#512da8"
-        barStyle="light-content"
-        translucent
-      />
-      <AnimeListContextProvider>
-        <SearchContextProvider>
-          <SelectedAnimeContextProvider>
-            <AnimeDetailContextProvider>
-              <PlayerContextProvider>
-                <NavigationContainer>
-                  <DrawerNavigator />
-                </NavigationContainer>
-              </PlayerContextProvider>
-            </AnimeDetailContextProvider>
-          </SelectedAnimeContextProvider>
-        </SearchContextProvider>
-      </AnimeListContextProvider>
-    </>
+    <AnimeListContextProvider>
+      <SearchContextProvider>
+        <SelectedAnimeContextProvider>
+          <AnimeDetailContextProvider>
+            <PlayerContextProvider>
+              <NavigationContainer>
+                <StatusBar
+                  animated={true}
+                  backgroundColor="#512da8"
+                  barStyle="light-content"
+                  translucent
+                />
+                <DrawerNavigator />
+              </NavigationContainer>
+            </PlayerContextProvider>
+          </AnimeDetailContextProvider>
+        </SelectedAnimeContextProvider>
+      </SearchContextProvider>
+    </AnimeListContextProvider>
   );
 };
 
