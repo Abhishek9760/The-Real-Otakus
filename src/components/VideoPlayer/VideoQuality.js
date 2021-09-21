@@ -1,13 +1,15 @@
 import React from 'react';
-import {Colors} from 'react-native-paper';
+import {Colors, FAB} from 'react-native-paper';
 import styled from 'styled-components/native';
 import VideoQualityList from './VideoQualityList';
+import CloseButton from '../utils/CloseButton';
 
 function VideoQuality() {
   return (
     <Wrapper>
       <HeaderText>Play In</HeaderText>
       <VideoQualityList />
+      <CloseButton />
     </Wrapper>
   );
 }

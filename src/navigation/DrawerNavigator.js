@@ -2,15 +2,23 @@ import React from 'react';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import {AboutStackNavigator, MainStackNavigator} from './StackNavigator';
-import {Colors} from 'react-native-paper';
+import {
+  AboutStackNavigator,
+  FavouritesStackNavigator,
+  MainStackNavigator,
+} from './StackNavigator';
+import {Colors, FAB, IconButton} from 'react-native-paper';
 import SearchButton from '../components/SearchButton';
 import VideoPlayerScreen from '../screens/VideoPlayerScreen';
 import CustomDrawerContent from './CustomDrawerContent';
 
+import styled from 'styled-components/native';
+import {useNavigation} from '@react-navigation/native';
+
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
+  const navigation = useNavigation();
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawerContent {...props} />}
@@ -32,17 +40,28 @@ const DrawerNavigator = () => {
         component={MainStackNavigator}
         options={{
           headerTitle: 'The Real Otakus',
-          headerRight: () => <SearchButton />,
+          headerRight: () => (
+            <Wrapper>
+              <SearchButton />
+              <IconButton
+                icon="heart"
+                color="#fff"
+                onPress={() => navigation.navigate('favourite')}
+              />
+            </Wrapper>
+          ),
         }}
       />
       <Drawer.Screen name="About" component={AboutStackNavigator} />
+      {/* <Drawer.Screen name="Favourites" component={FavouritesStackNavigator} /> */}
       <Drawer.Screen
         name="video"
         component={VideoPlayerScreen}
         options={{
           headerShown: false,
-          gestureEnabled: false,
           unmountOnBlur: true,
+          swipeEnabled: false,
+          gestureEnabled: false,
         }}
       />
     </Drawer.Navigator>
@@ -50,3 +69,7 @@ const DrawerNavigator = () => {
 };
 
 export {DrawerNavigator};
+
+const Wrapper = styled.View`
+  flex-direction: row;
+`;

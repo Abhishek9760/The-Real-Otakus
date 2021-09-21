@@ -6,6 +6,7 @@ function TryAgain({reload, loading}) {
   return (
     <Wrapper>
       <FAB
+        animated
         loading={loading}
         disabled={loading}
         icon="cached"

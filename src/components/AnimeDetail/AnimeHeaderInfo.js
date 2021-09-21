@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {Colors, List} from 'react-native-paper';
+import {Colors, List, IconButton} from 'react-native-paper';
+import FavoritesButton from '../FavoritesButton';
 
 function AnimeHeaderInfo({anime}) {
   const {anime_info} = anime;
@@ -29,6 +30,7 @@ function AnimeHeaderInfo({anime}) {
             description={anime_info.other_names || 'Not Found'}
           />
         </InfoWrapper>
+        <FavoritesButton anime={anime} />
       </Wrapper>
     </>
   );

@@ -11,6 +11,9 @@ import {SearchContextProvider} from './src/context/SearchContext';
 import {SelectedAnimeContextProvider} from './src/context/SelectedAnimeContext';
 import SplashScreen from 'react-native-splash-screen';
 import analytics from '@react-native-firebase/analytics';
+import {getUniqueId} from 'react-native-device-info';
+import {FavouritesContextProvider} from './src/context/FavouritesContext';
+import {PopularAnimeContextProvider} from './src/context/PopularAnimeContext';
 
 const App = () => {
   useEffect(() => {
@@ -24,28 +27,32 @@ const App = () => {
     changeColor();
     Orientation.lockToPortrait();
     SplashScreen.hide();
-    // console.log(analytics().getAppInstanceId());
+    analytics().setUserId(getUniqueId());
   }, []);
   return (
-    <AnimeListContextProvider>
-      <SearchContextProvider>
-        <SelectedAnimeContextProvider>
-          <AnimeDetailContextProvider>
-            <PlayerContextProvider>
-              <NavigationContainer>
-                <StatusBar
-                  animated={true}
-                  backgroundColor="#512da8"
-                  barStyle="light-content"
-                  translucent
-                />
-                <DrawerNavigator />
-              </NavigationContainer>
-            </PlayerContextProvider>
-          </AnimeDetailContextProvider>
-        </SelectedAnimeContextProvider>
-      </SearchContextProvider>
-    </AnimeListContextProvider>
+    <PopularAnimeContextProvider>
+      <AnimeListContextProvider>
+        <SearchContextProvider>
+          <SelectedAnimeContextProvider>
+            <FavouritesContextProvider>
+              <AnimeDetailContextProvider>
+                <PlayerContextProvider>
+                  <NavigationContainer>
+                    <StatusBar
+                      animated={true}
+                      backgroundColor="#512da8"
+                      barStyle="light-content"
+                      translucent
+                    />
+                    <DrawerNavigator />
+                  </NavigationContainer>
+                </PlayerContextProvider>
+              </AnimeDetailContextProvider>
+            </FavouritesContextProvider>
+          </SelectedAnimeContextProvider>
+        </SearchContextProvider>
+      </AnimeListContextProvider>
+    </PopularAnimeContextProvider>
   );
 };
 

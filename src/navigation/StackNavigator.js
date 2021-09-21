@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen';
 import AnimeScreen from '../screens/AnimeScreen';
 import PlayerScreen from '../screens/PlayerScreen';
 import AboutScreen from '../screens/AboutScreen';
+import FavouritesScreen from '../screens/FavouritesScreen';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ const MainStackNavigator = () => {
       <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen name="anime" component={AnimeScreen} />
       <Stack.Screen name="player" component={PlayerScreen} />
+      <Stack.Screen name="favourite" component={FavouritesScreen} />
     </Stack.Navigator>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Linking} from 'react-native';
+import {Linking, Share} from 'react-native';
 import {Paragraph, Button} from 'react-native-paper';
 import styled from 'styled-components/native';
 import {showToast} from '../utils';
@@ -7,6 +7,17 @@ import {showToast} from '../utils';
 const INFO = {
   facebook_page_uri: 'https://www.facebook.com/theRealOtakus',
   facebook_group_uri: 'https://www.facebook.com/groups/521357288405317',
+  instagram_url: 'https://www.instagram.com/the.real.otakus/',
+  site_url: 'https://www.therealotakus.live',
+};
+
+const shareMessage = {
+  title: 'The Real Otakus Offical App',
+  message: `Konnichiwa otakus 😃😃The Real Otakus is a free app for you to watch anime anywhere, anytime with an ease 🤩🤩.
+Just download and install our app and start watching now🤗
+You can watch anime in English Subtitled 😎 and English Dubbed  😏.
+
+Visit ${INFO.site_url} for download.`,
 };
 
 function AboutScreen() {
@@ -20,7 +31,16 @@ function AboutScreen() {
         <DescriptionText>Enjoy watching for free</DescriptionText>
         <Button
           mode="contained"
-          onPress={() => showToast("We're working on it :)")}>
+          onPress={async () =>
+            await Share.share(
+              {
+                title: shareMessage.title,
+                message: shareMessage.message,
+                url: INFO.site_url,
+              },
+              {dialogTitle: 'Share The Real Otakus Offical App'},
+            )
+          }>
           Share App
         </Button>
       </Wrapper>
@@ -40,6 +60,13 @@ function AboutScreen() {
             onPress={() => Linking.openURL(INFO.facebook_group_uri)}>
             Join Group
           </Button>
+          <VerticalLine />
+          <Button
+            icon="instagram"
+            mode="text"
+            onPress={() => Linking.openURL(INFO.instagram_url)}>
+            Follow
+          </Button>
         </Social>
       </Wrapper>
     </BackgroundImage>
@@ -54,15 +81,16 @@ const BackgroundImage = styled.ImageBackground.attrs({
 
 const VerticalLine = styled.View`
   background-color: #aa00ff;
-  height: 20px;
-  width: 1px;
-  margin-top: 10px;
+  height: 1px;
+  width: 25px;
+  align-self: center;
 `;
 
 const Social = styled.View`
   flex: 1;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 `;
 
 const Wrapper = styled.View`

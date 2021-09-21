@@ -1,37 +1,21 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import styled from 'styled-components';
-import {AnimeListContext} from '../context/AnimeListContext';
 import AnimeItem from './AnimeItem';
-import Loader from './utils/Loader';
-import LottieView from 'lottie-react-native';
 import {Colors} from 'react-native-paper';
 
 function AnimeList({animeList, title, children}) {
-  const {loading, error} = useContext(AnimeListContext);
   return (
     <Container>
-      {loading ? (
-        <Loader />
-      ) : animeList.length !== 0 ? (
-        <FlatList
-          data={animeList}
-          renderItem={({item}) => <AnimeItem anime={item} />}
-          numColumns={3}
-          contentContainerStyle={FlatListStyles.container}
-          keyExtractor={item => item.name}
-          ListHeaderComponent={<ListTitle>{title || 'Popular 🔥'}</ListTitle>}
-          columnWrapperStyle={FlatListStyles.column}
-        />
-      ) : error.length !== 0 ? (
-        children
-      ) : (
-        <LottieView
-          source={require('../../assets/lottie/404.json')}
-          autoPlay
-          loop
-        />
-      )}
+      <FlatList
+        data={animeList}
+        renderItem={({item}) => <AnimeItem anime={item} />}
+        numColumns={3}
+        contentContainerStyle={FlatListStyles.container}
+        keyExtractor={item => item.name}
+        ListHeaderComponent={<ListTitle>{title || 'Popular 🔥'}</ListTitle>}
+        columnWrapperStyle={FlatListStyles.column}
+      />
     </Container>
   );
 }

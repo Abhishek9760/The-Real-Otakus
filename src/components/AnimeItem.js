@@ -12,9 +12,7 @@ function AnimeItem({anime}) {
   return (
     <Card
       onPress={() => {
-        navigation.navigate('anime', {
-          anime: anime,
-        });
+        navigation.navigate('anime', {anime: anime});
         setAnimeListModal(false);
       }}>
       <CardWrapper>

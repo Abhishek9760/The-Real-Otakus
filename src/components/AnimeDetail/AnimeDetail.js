@@ -4,6 +4,7 @@ import {StyleSheet} from 'react-native';
 import AnimeHeaderInfo from './AnimeHeaderInfo';
 import {Title, Divider, Paragraph} from 'react-native-paper';
 import AnimeEpisodesDialogList from './AnimeEpisodesDialogList';
+import CloseButton from '../utils/CloseButton';
 
 function AnimeDetail({anime}) {
   return (
@@ -16,6 +17,7 @@ function AnimeDetail({anime}) {
       <Title>Plot Summary</Title>
       <Divider />
       <Paragraph>{anime.anime_info.plot_summary}</Paragraph>
+      <CloseButton />
     </Wrapper>
   );
 }

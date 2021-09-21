@@ -2,21 +2,31 @@ import React from 'react';
 
 import SafeArea from '../components/utils/SafeArea';
 import styled from 'styled-components/native';
+import {Image} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 
-import {DrawerContentScrollView} from '@react-navigation/drawer';
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {Colors} from 'react-native-paper';
 
 function CustomDrawerContent(props) {
   const getBackground = i => {
     const index = props.navigation.getState().index;
     return {
-      backgroundColor: index === i ? Colors.deepPurple400 : 'rgba(0,0,0,.3)',
+      backgroundColor: index === i ? 'rgba(69, 39, 160, .5)' : 'rgba(0,0,0,.5)',
     };
   };
+
+  const getFavBackground = i => {
+    const index = props.navigation.getState().index;
+    return {
+      backgroundColor: index === i ? Colors.red400 : 'rgb(238, 167, 165)',
+      borderTopColor: index === i ? Colors.red200 : '#ccc',
+    };
+  };
+
   return (
-    <DrawerBackgroundImage>
+    <DrawerBackground>
       <SafeArea>
         <DrawerView>
           <DrawerImage
@@ -38,34 +48,44 @@ function CustomDrawerContent(props) {
               <DrawerItemLabel>About</DrawerItemLabel>
             </DrawerItemView>
           </DrawerContentScrollView>
+
+          <AppLogo />
         </DrawerView>
       </SafeArea>
-    </DrawerBackgroundImage>
+    </DrawerBackground>
   );
 }
 
 export default CustomDrawerContent;
 
-const DrawerBackgroundImage = styled.ImageBackground.attrs({
-  blurRadius: 10,
-  resizeMode: 'cover',
-  source: require('../../assets/images/drawer.jpg'),
+const AppLogo = styled.Image.attrs({
+  source: require('../../assets/images/app-logo.png'),
 })`
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  opacity: 0.5;
+`;
+
+const DrawerBackground = styled.View`
   flex: 1;
+  background-color: #eee;
 `;
 
 const DrawerItemLabel = styled.Text`
-  font-family: 'Stentiga';
-  margin: 16px;
+  font-family: 'Wabene';
+  margin-left: 16px;
   color: #fff;
+  letter-spacing: 3px;
 `;
 
 const DrawerItemView = styled.TouchableOpacity`
   flex-direction: row;
   width: 100%;
-  height: 50px;
   align-items: center;
-  padding-left: 20px;
+  padding: 10px 0px 10px 20px;
   margin: 5px 0;
 `;
 
