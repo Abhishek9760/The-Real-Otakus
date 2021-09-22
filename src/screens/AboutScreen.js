@@ -2,7 +2,6 @@ import React from 'react';
 import {Linking, Share} from 'react-native';
 import {Paragraph, Button} from 'react-native-paper';
 import styled from 'styled-components/native';
-import {showToast} from '../utils';
 
 const INFO = {
   facebook_page_uri: 'https://www.facebook.com/theRealOtakus',

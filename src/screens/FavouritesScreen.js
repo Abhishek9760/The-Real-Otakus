@@ -10,11 +10,11 @@ import CloseButton from '../components/utils/CloseButton';
 function FavouritesScreen() {
   const {favourites} = useContext(FavouritesContext);
   return (
-    <View style={{flex: 1}}>
+    <Container>
       {Object.keys(favourites).length ? (
         <>
           <AnimeList
-            title={`Your Favourites ${Object.keys(favourites).length}`}
+            title={`Your Favourites (${Object.keys(favourites).length})`}
             animeList={Object.values(favourites)}
           />
           <CloseButton />
@@ -33,9 +33,13 @@ function FavouritesScreen() {
           <CloseButton />
         </Wrapper>
       )}
-    </View>
+    </Container>
   );
 }
+
+const Container = styled.View`
+  flex: 1;
+`;
 
 const Wrapper = styled.View`
   flex: 1;

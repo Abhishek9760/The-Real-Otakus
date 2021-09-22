@@ -2,26 +2,16 @@ import React from 'react';
 
 import SafeArea from '../components/utils/SafeArea';
 import styled from 'styled-components/native';
-import {Image} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 
-import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import {Colors} from 'react-native-paper';
+import {DrawerContentScrollView} from '@react-navigation/drawer';
 
 function CustomDrawerContent(props) {
   const getBackground = i => {
     const index = props.navigation.getState().index;
     return {
       backgroundColor: index === i ? 'rgba(69, 39, 160, .5)' : 'rgba(0,0,0,.5)',
-    };
-  };
-
-  const getFavBackground = i => {
-    const index = props.navigation.getState().index;
-    return {
-      backgroundColor: index === i ? Colors.red400 : 'rgb(238, 167, 165)',
-      borderTopColor: index === i ? Colors.red200 : '#ccc',
     };
   };
 

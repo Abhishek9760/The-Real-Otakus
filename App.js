@@ -10,10 +10,9 @@ import {DrawerNavigator} from './src/navigation/DrawerNavigator';
 import {SearchContextProvider} from './src/context/SearchContext';
 import {SelectedAnimeContextProvider} from './src/context/SelectedAnimeContext';
 import SplashScreen from 'react-native-splash-screen';
-import analytics from '@react-native-firebase/analytics';
-import {getUniqueId} from 'react-native-device-info';
 import {FavouritesContextProvider} from './src/context/FavouritesContext';
 import {PopularAnimeContextProvider} from './src/context/PopularAnimeContext';
+import admob, {MaxAdContentRating} from '@react-native-firebase/admob';
 
 const App = () => {
   useEffect(() => {
@@ -27,7 +26,23 @@ const App = () => {
     changeColor();
     Orientation.lockToPortrait();
     SplashScreen.hide();
-    analytics().setUserId(getUniqueId());
+    // analytics().setUserId(getUniqueId());
+
+    admob()
+      .setRequestConfiguration({
+        // Update all future requests suitable for parental guidance
+        maxAdContentRating: MaxAdContentRating.PG,
+
+        // Indicates that you want your content treated as child-directed for purposes of COPPA.
+        tagForChildDirectedTreatment: true,
+
+        // Indicates that you want the ad request to be handled in a
+        // manner suitable for users under the age of consent.
+        tagForUnderAgeOfConsent: true,
+      })
+      .then(() => {
+        // Request config successfully set!
+      });
   }, []);
   return (
     <PopularAnimeContextProvider>

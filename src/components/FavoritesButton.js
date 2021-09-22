@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {IconButton, Colors} from 'react-native-paper';
 import styled from 'styled-components/native';
 import {FavouritesContext} from '../context/FavouritesContext';

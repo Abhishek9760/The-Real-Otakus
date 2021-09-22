@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Button} from 'react-native-paper';
 import styled from 'styled-components/native';
 
-function VideoQualityItem({text, url}) {
+function VideoQualityItem({text, url, showAd}) {
   const navigation = useNavigation();
 
   return (
@@ -15,6 +15,7 @@ function VideoQualityItem({text, url}) {
         icon="video"
         mode="outlined"
         onPress={() => {
+          showAd();
           navigation.navigate('video', {url: url});
         }}>
         {text}

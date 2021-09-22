@@ -14,7 +14,7 @@ function SearchAnimeList() {
     useContext(AnimeListContext);
   const {submit} = useContext(SearchContext);
   return (
-    <View style={{flex: 1}}>
+    <Container>
       {loading ? (
         <Loader />
       ) : error.length !== 0 ? (
@@ -22,7 +22,7 @@ function SearchAnimeList() {
           <TryAgain reload={submit} loading={loading} />
         </Wrapper>
       ) : animeList.length > 0 ? (
-        <AnimeList animeList={animeList} />
+        <AnimeList title="Search Results" animeList={animeList} />
       ) : (
         <LottieView
           source={require('../../assets/lottie/404.json')}
@@ -35,9 +35,13 @@ function SearchAnimeList() {
         icon="close"
         onPress={() => setAnimeListModal(false)}
       />
-    </View>
+    </Container>
   );
 }
+
+const Container = styled.View`
+  flex: 1;
+`;
 
 const Wrapper = styled.View`
   flex: 1;

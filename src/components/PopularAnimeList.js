@@ -1,6 +1,4 @@
 import React, {useContext} from 'react';
-import {View} from 'react-native';
-import {Colors, FAB} from 'react-native-paper';
 import styled from 'styled-components/native';
 import {PopularAnimeContext} from '../context/PopularAnimeContext';
 import AnimeList from './AnimeList';
@@ -10,7 +8,7 @@ import TryAgain from './utils/TryAgain';
 function PopularAnimeList() {
   const {getPopular, popular, error, loading} = useContext(PopularAnimeContext);
   return (
-    <View style={{flex: 1}}>
+    <Container>
       {loading ? (
         <Loader />
       ) : error.length !== 0 ? (
@@ -18,13 +16,15 @@ function PopularAnimeList() {
           <TryAgain reload={getPopular} loading={loading} />
         </Wrapper>
       ) : (
-        <AnimeList animeList={popular} />
+        <AnimeList title="Popular 🔥" animeList={popular} />
       )}
-    </View>
+    </Container>
   );
 }
 
-const FabView = styled.View``;
+const Container = styled.View`
+  flex: 1;
+`;
 
 const Wrapper = styled.View`
   flex: 1;

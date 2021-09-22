@@ -13,7 +13,7 @@ function AnimeList({animeList, title, children}) {
         numColumns={3}
         contentContainerStyle={FlatListStyles.container}
         keyExtractor={item => item.name}
-        ListHeaderComponent={<ListTitle>{title || 'Popular 🔥'}</ListTitle>}
+        ListHeaderComponent={title ? <ListTitle>{title}</ListTitle> : null}
         columnWrapperStyle={FlatListStyles.column}
       />
     </Container>

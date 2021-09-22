@@ -2,12 +2,8 @@ import React from 'react';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import {
-  AboutStackNavigator,
-  FavouritesStackNavigator,
-  MainStackNavigator,
-} from './StackNavigator';
-import {Colors, FAB, IconButton} from 'react-native-paper';
+import {AboutStackNavigator, MainStackNavigator} from './StackNavigator';
+import {Colors, IconButton} from 'react-native-paper';
 import SearchButton from '../components/SearchButton';
 import VideoPlayerScreen from '../screens/VideoPlayerScreen';
 import CustomDrawerContent from './CustomDrawerContent';
