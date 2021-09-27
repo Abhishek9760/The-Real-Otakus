@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, Alert, BackHandler, Linking} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {AnimeDetailContextProvider} from './src/context/AnimeDetailContext';
 import {AnimeListContextProvider} from './src/context/AnimeListContext';
@@ -13,6 +13,30 @@ import SplashScreen from 'react-native-splash-screen';
 import {FavouritesContextProvider} from './src/context/FavouritesContext';
 import {PopularAnimeContextProvider} from './src/context/PopularAnimeContext';
 import admob, {MaxAdContentRating} from '@react-native-firebase/admob';
+import VersionCheck from 'react-native-version-check';
+
+const checkUpdateNeeded = async () => {
+  try {
+    let updateNeeded = await VersionCheck.needUpdate();
+    if (updateNeeded && updateNeeded.isNeeded) {
+      Alert.alert(
+        'New Update Available 🎉',
+        'To continue enjoy free animes, Please update your app.',
+        [
+          {
+            text: 'Update',
+            onPress: () => {
+              BackHandler.exitApp();
+              Linking.openURL(updateNeeded.storeUrl);
+            },
+          },
+        ],
+      );
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const App = () => {
   useEffect(() => {
@@ -23,6 +47,7 @@ const App = () => {
         console.log(err);
       }
     };
+    checkUpdateNeeded();
     changeColor();
     Orientation.lockToPortrait();
     SplashScreen.hide();
@@ -44,6 +69,7 @@ const App = () => {
         // Request config successfully set!
       });
   }, []);
+
   return (
     <PopularAnimeContextProvider>
       <AnimeListContextProvider>

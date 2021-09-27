@@ -4,16 +4,23 @@ import styled from 'styled-components';
 import {Colors, Badge} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {AnimeListContext} from '../context/AnimeListContext';
+import {SelectedAnimeContext} from '../context/SelectedAnimeContext';
+import {AnimeDetailContext} from '../context/AnimeDetailContext';
 
 function AnimeItem({anime}) {
   const navigation = useNavigation();
   const {setAnimeListModal} = useContext(AnimeListContext);
+  const {setAnime} = useContext(SelectedAnimeContext);
+  const {getAnimeInfo} = useContext(AnimeDetailContext);
 
   return (
     <Card
       onPress={() => {
-        navigation.navigate('anime', {anime: anime});
+        // console.log(anime);
+        setAnime(anime);
         setAnimeListModal(false);
+        getAnimeInfo(anime.source);
+        navigation.navigate('anime');
       }}>
       <CardWrapper>
         <Image

@@ -41,8 +41,22 @@ function AnimeEpisodesDialogList({totalEp}) {
 
   const memotizedRenderItem = useMemo(() => renderItem, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => () => setAnimeEpisodes([]), []);
+  useEffect(() => {
+    setAnimeEpisodes([]);
+    // setSingleEp(Object.keys(animeEpisodes)[0]);
+    () => setAnimeEpisodes([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [anime]);
+
+  useEffect(() => {
+    if (animeEpisodes.length) {
+      let firstEp = Object.keys(animeEpisodes[0])[0];
+      setSingleEp(firstEp);
+      setDisabled(false);
+    }
+  }, [animeEpisodes]);
+
+  console.log(anime.name, 'from list');
 
   return (
     <>

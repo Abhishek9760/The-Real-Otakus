@@ -11,7 +11,7 @@ export const AnimeListContextProvider = ({children}) => {
 
   const getAnime = query => {
     setLoading(true);
-    fetch(`https://fathomless-coast-98646.herokuapp.com/search/${query}/`)
+    fetch(`https://glacial-fjord-95890.herokuapp.com/search/${query}/`)
       .then(res => res.json())
       .then(data => {
         setAnimeList(data);

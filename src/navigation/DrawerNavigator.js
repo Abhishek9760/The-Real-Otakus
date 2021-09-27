@@ -18,7 +18,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawerContent {...props} />}
-      initialRouteName="About"
+      initialRouteName="Home"
       screenOptions={{
         headerTintColor: '#fff',
         headerStyle: {backgroundColor: Colors.deepPurple600},

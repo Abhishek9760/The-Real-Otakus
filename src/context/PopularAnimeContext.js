@@ -14,7 +14,7 @@ export const PopularAnimeContextProvider = ({children}) => {
 
   const getPopular = () => {
     setLoading(true);
-    fetch('https://fathomless-coast-98646.herokuapp.com/popular/')
+    fetch('https://glacial-fjord-95890.herokuapp.com/popular/')
       .then(res => res.json())
       .then(data => {
         setLoading(false);

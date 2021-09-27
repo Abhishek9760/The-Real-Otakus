@@ -11,7 +11,7 @@ export const AnimeDetailContextProvider = ({children}) => {
     let isCancelled = false;
     setLoading(true);
     return fetch(
-      `https://fathomless-coast-98646.herokuapp.com/episodes?source=${source}`,
+      `https://glacial-fjord-95890.herokuapp.com/episodes?source=${source}`,
       {
         method: 'GET',
         headers: {

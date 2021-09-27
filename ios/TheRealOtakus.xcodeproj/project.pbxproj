@@ -32,6 +32,7 @@
 		D3C7EF85543641F194AC7540 /* Landmark.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 654FF99BC15245ACAB8B16D1 /* Landmark.ttf */; };
 		6E49F6283BF84020AE70A056 /* Stentiga.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEAD03E5253144C4B357A7F6 /* Stentiga.ttf */; };
 		96AA471737EC41DE82914694 /* Wabene.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 054914D212C14FDBB2623BD5 /* Wabene.ttf */; };
+		116A61336A5C403B9782C54B /* Paladise Script.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5FEAC855A4B24464B3EDE2E1 /* Paladise Script.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		654FF99BC15245ACAB8B16D1 /* Landmark.ttf */ = {isa = PBXFileReference; name = "Landmark.ttf"; path = "../assets/fonts/Landmark.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FEAD03E5253144C4B357A7F6 /* Stentiga.ttf */ = {isa = PBXFileReference; name = "Stentiga.ttf"; path = "../assets/fonts/Stentiga.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		054914D212C14FDBB2623BD5 /* Wabene.ttf */ = {isa = PBXFileReference; name = "Wabene.ttf"; path = "../assets/fonts/Wabene.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5FEAC855A4B24464B3EDE2E1 /* Paladise Script.otf */ = {isa = PBXFileReference; name = "Paladise Script.otf"; path = "../assets/fonts/Paladise Script.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 				654FF99BC15245ACAB8B16D1 /* Landmark.ttf */,
 				FEAD03E5253144C4B357A7F6 /* Stentiga.ttf */,
 				054914D212C14FDBB2623BD5 /* Wabene.ttf */,
+				5FEAC855A4B24464B3EDE2E1 /* Paladise Script.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				D3C7EF85543641F194AC7540 /* Landmark.ttf in Resources */,
 				6E49F6283BF84020AE70A056 /* Stentiga.ttf in Resources */,
 				96AA471737EC41DE82914694 /* Wabene.ttf in Resources */,
+				116A61336A5C403B9782C54B /* Paladise Script.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

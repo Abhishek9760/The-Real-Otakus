@@ -6,10 +6,11 @@ export const PlayerContext = createContext();
 export const PlayerContextProvider = ({children}) => {
   const [vidUrls, setVidUrls] = useState({});
   const [epUrl, setEpUrl] = useState('');
+  const [paused, setPaused] = useState(false);
 
   const getVidDownloadLinks = epLink => {
     return fetch(
-      `https://fathomless-coast-98646.herokuapp.com/episode?episode_link=${epLink}`,
+      `https://glacial-fjord-95890.herokuapp.com/episode?episode_link=${epLink}`,
     )
       .then(res => res.json())
       .then(data => setVidUrls(data))
@@ -27,6 +28,8 @@ export const PlayerContextProvider = ({children}) => {
         epUrl,
         setEpUrl,
         setVidUrls,
+        paused,
+        setPaused,
       }}>
       {children}
     </PlayerContext.Provider>

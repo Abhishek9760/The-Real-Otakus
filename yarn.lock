@@ -4644,6 +4644,16 @@ lodash.isequal@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
   integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
+lodash.isfunction@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz#06de25df4db327ac931981d1bdb067e5af68d051"
+  integrity sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==
+
+lodash.isnil@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/lodash.isnil/-/lodash.isnil-4.0.0.tgz#49e28cd559013458c814c5479d3c663a21bfaa6c"
+  integrity sha1-SeKM1VkBNFjIFMVHnTxmOiG/qmw=
+
 lodash.isstring@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
@@ -4689,7 +4699,7 @@ lodash.truncate@^4.4.2:
   resolved "https://registry.yarnpkg.com/lodash.truncate/-/lodash.truncate-4.4.2.tgz#5a350da0b1113b837ecfffd5812cbe58d6eae193"
   integrity sha1-WjUNoLERO4N+z//VgSy+WNbq4ZM=
 
-lodash@^4.16.4, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.7.0:
+lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.21, lodash@^4.7.0:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -5761,11 +5771,6 @@ react-native-codegen@^0.0.7:
     jscodeshift "^0.11.0"
     nullthrows "^1.1.1"
 
-react-native-device-info@^8.3.3:
-  version "8.3.3"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.3.3.tgz#05c1900602d174b58c6ac927d748a785d76d0898"
-  integrity sha512-l8/3MHq6O9PRWSrKwy63WvDCnt8IXOce86AEkJFVVtKR9cAGLLaFyXUGyqIc5T/kpCyOqofOattVDjZGUn/zAQ==
-
 react-native-gesture-handler@^1.10.3:
   version "1.10.3"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.10.3.tgz#942bbf2963bbf49fa79593600ee9d7b5dab3cfc0"
@@ -5857,12 +5862,15 @@ react-native-vector-icons@^8.1.0:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native-video-controls@^2.8.1:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/react-native-video-controls/-/react-native-video-controls-2.8.1.tgz#30ae707d8d218fed34bba3fc027b3943c5f438d9"
-  integrity sha512-dBmrE3TAKaR1gYMfbukjAM6Xo8OMZyRrxPzZtnaUgWcvGo11PQwzaI/j8HPD5fLgO+rlweP2pDpEJyIBsJvJkw==
+react-native-version-check@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-version-check/-/react-native-version-check-3.4.2.tgz#f330c3050b5e8de249eb2dd53ef55c5a17bfa0cd"
+  integrity sha512-f2eHI6p60UlBzlcxuy4pQaGqCEmR5cNvRQuyG/pFydLdutYpa05zeg4KkTfHWdVmGHhiawyaAfto9QsnBZ70Ew==
   dependencies:
-    lodash "^4.16.4"
+    lodash.isfunction "^3.0.9"
+    lodash.isnil "^4.0.0"
+    lodash.pick "^4.4.0"
+    semver "^6.1.1"
 
 react-native-video@^5.1.1:
   version "5.1.1"

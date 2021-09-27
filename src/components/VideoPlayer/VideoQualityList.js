@@ -14,11 +14,14 @@ const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
 });
 
 function VideoQualityList() {
-  const {vidUrls} = useContext(PlayerContext);
+  const {vidUrls, setPaused} = useContext(PlayerContext);
 
   const showAd = () => {
     if (interstitial.loaded) {
-      interstitial.show().catch(err => console.log(err));
+      interstitial
+        .show()
+        .then(() => setPaused(true))
+        .catch(err => console.log(err));
     }
   };
 
@@ -28,6 +31,7 @@ function VideoQualityList() {
         console.log('InterstitialAd adLoaded');
       } else if (type === AdEventType.ERROR) {
         console.warn('InterstitialAd => Error');
+        setPaused(false);
       } else if (type === AdEventType.OPENED) {
         console.log('IntertitialAd => adOpened');
       } else if (type === AdEventType.CLICKED) {
@@ -37,6 +41,7 @@ function VideoQualityList() {
       } else if (type === AdEventType.CLOSED) {
         console.log('InterstitialAd => adClosed');
         interstitial.load();
+        setPaused(false);
       }
     });
 
@@ -51,6 +56,7 @@ function VideoQualityList() {
       eventListener();
       // setLoaded(false)
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <List.Section>

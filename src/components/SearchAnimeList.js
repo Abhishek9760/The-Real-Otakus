@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {AnimeListContext} from '../context/AnimeListContext';
 import {SearchContext} from '../context/SearchContext';

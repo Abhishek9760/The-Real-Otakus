@@ -37,7 +37,7 @@ const ListTitle = styled.Text`
   font-size: 30px;
   margin-left: 2px;
   padding: 10px 0;
-  font-family: 'Landmark';
+  font-family: 'Paladise Script';
   letter-spacing: 3px;
   color: ${Colors.purple800};
 `;
