@@ -10,7 +10,7 @@ export const PlayerContextProvider = ({children}) => {
 
   const getVidDownloadLinks = epLink => {
     return fetch(
-      `https://glacial-fjord-95890.herokuapp.com/episode?episode_link=${epLink}`,
+      `https://therealotakus.azurewebsites.net/episode?episode_link=${epLink}`,
     )
       .then(res => res.json())
       .then(data => setVidUrls(data))

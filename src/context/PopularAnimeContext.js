@@ -14,7 +14,7 @@ export const PopularAnimeContextProvider = ({children}) => {
 
   const getPopular = () => {
     setLoading(true);
-    fetch('https://glacial-fjord-95890.herokuapp.com/popular/')
+    fetch('https://therealotakus.azurewebsites.net/popular')
       .then(res => res.json())
       .then(data => {
         setLoading(false);

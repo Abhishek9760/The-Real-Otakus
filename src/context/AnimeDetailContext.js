@@ -11,7 +11,7 @@ export const AnimeDetailContextProvider = ({children}) => {
     let isCancelled = false;
     setLoading(true);
     return fetch(
-      `https://glacial-fjord-95890.herokuapp.com/episodes?source=${source}`,
+      `https://therealotakus.azurewebsites.net/episodes?source=${source}`,
       {
         method: 'GET',
         headers: {
