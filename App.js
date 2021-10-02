@@ -12,31 +12,20 @@ import {SelectedAnimeContextProvider} from './src/context/SelectedAnimeContext';
 import SplashScreen from 'react-native-splash-screen';
 import {FavouritesContextProvider} from './src/context/FavouritesContext';
 import {PopularAnimeContextProvider} from './src/context/PopularAnimeContext';
-import admob, {MaxAdContentRating} from '@react-native-firebase/admob';
-import VersionCheck from 'react-native-version-check';
 
-const checkUpdateNeeded = async () => {
-  try {
-    let updateNeeded = await VersionCheck.needUpdate();
-    if (updateNeeded && updateNeeded.isNeeded) {
-      Alert.alert(
-        'New Update Available 🎉',
-        'To continue enjoy free animes, Please update your app.',
-        [
-          {
-            text: 'Update',
-            onPress: () => {
-              BackHandler.exitApp();
-              Linking.openURL(updateNeeded.storeUrl);
-            },
-          },
-        ],
-      );
-    }
-  } catch (e) {
-    console.log(e);
-  }
-};
+// Alert.alert(
+//   'New Update Available 🎉',
+//   'To continue enjoy free animes, Please update your app.',
+//   [
+//     {
+//       text: 'Update',
+//       onPress: () => {
+//         BackHandler.exitApp();
+//         Linking.openURL(updateNeeded.storeUrl);
+//       },
+//     },
+//   ],
+// );
 
 const App = () => {
   useEffect(() => {
@@ -47,27 +36,10 @@ const App = () => {
         console.log(err);
       }
     };
-    checkUpdateNeeded();
     changeColor();
     Orientation.lockToPortrait();
     SplashScreen.hide();
     // analytics().setUserId(getUniqueId());
-
-    admob()
-      .setRequestConfiguration({
-        // Update all future requests suitable for parental guidance
-        maxAdContentRating: MaxAdContentRating.PG,
-
-        // Indicates that you want your content treated as child-directed for purposes of COPPA.
-        tagForChildDirectedTreatment: true,
-
-        // Indicates that you want the ad request to be handled in a
-        // manner suitable for users under the age of consent.
-        tagForUnderAgeOfConsent: true,
-      })
-      .then(() => {
-        // Request config successfully set!
-      });
   }, []);
 
   return (

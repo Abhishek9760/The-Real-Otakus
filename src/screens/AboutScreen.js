@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Linking, Share} from 'react-native';
 import {Paragraph, Button} from 'react-native-paper';
 import styled from 'styled-components/native';
-import VersionCheck from 'react-native-version-check';
 
 const INFO = {
   facebook_page_uri: 'https://www.facebook.com/theRealOtakus',
@@ -21,12 +20,6 @@ Visit ${INFO.site_url} for download.`,
 };
 
 function AboutScreen() {
-  const [version, setVersion] = useState('');
-
-  useEffect(() => {
-    setVersion(VersionCheck.getCurrentVersion());
-  }, []);
-
   return (
     <BackgroundImage>
       <Wrapper>
@@ -74,7 +67,6 @@ function AboutScreen() {
             Follow
           </Button>
         </Social>
-        {version ? <VersionText>App version {version}</VersionText> : null}
       </Wrapper>
     </BackgroundImage>
   );

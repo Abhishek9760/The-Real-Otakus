@@ -11,19 +11,11 @@ function PlayerScreen({route}) {
     if (link) {
       getVidDownloadLinks(link);
     }
-    return () => setVidUrls({});
+    return () => setVidUrls([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [link]);
 
-  return (
-    <>
-      {Object.keys(vidUrls).length === 0 && vidUrls.constructor === Object ? (
-        <Loader />
-      ) : (
-        <VideoQuality />
-      )}
-    </>
-  );
+  return <>{vidUrls.length === 0 ? <Loader /> : <VideoQuality />}</>;
 }
 
 export default PlayerScreen;
