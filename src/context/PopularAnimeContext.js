@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect} from 'react';
+import React, {createContext, useState} from 'react';
 import {showToast} from '../utils';
 
 export const PopularAnimeContext = createContext();
@@ -8,17 +8,13 @@ export const PopularAnimeContextProvider = ({children}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    getPopular();
-  }, []);
-
-  const getPopular = () => {
+  const getPopular = (page = 1) => {
     setLoading(true);
-    fetch('https://therealotakus.azurewebsites.net/popular')
+    fetch(`https://therealotakus.azurewebsites.net/popular?page=${page}`)
       .then(res => res.json())
       .then(data => {
         setLoading(false);
-        setPopular(data);
+        setPopular([...popular, ...data]);
         setError('');
       })
       .catch(err => {

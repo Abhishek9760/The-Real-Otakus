@@ -26,13 +26,24 @@ function CustomDrawerContent(props) {
           <DrawerContentScrollView {...props}>
             <DrawerItemView
               style={getBackground(0)}
-              onPress={() => props.navigation.navigate('Home')}>
+              onPress={() =>
+                props.navigation.navigate('Home', {screen: 'home'})
+              }>
               <Icon name="home" size={25} color="#fff" />
               <DrawerItemLabel>Home</DrawerItemLabel>
             </DrawerItemView>
 
             <DrawerItemView
               style={getBackground(1)}
+              onPress={() =>
+                props.navigation.navigate('Genre', {screen: 'genre'})
+              }>
+              <Icon name="grid" size={25} color="#fff" />
+              <DrawerItemLabel>All Genre</DrawerItemLabel>
+            </DrawerItemView>
+
+            <DrawerItemView
+              style={getBackground(2)}
               onPress={() => props.navigation.navigate('About')}>
               <Icon name="info" size={25} color="#fff" />
               <DrawerItemLabel>About</DrawerItemLabel>

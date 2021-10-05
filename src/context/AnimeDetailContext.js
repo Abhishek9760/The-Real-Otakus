@@ -3,15 +3,21 @@ import {showToast} from '../utils';
 
 export const AnimeDetailContext = createContext();
 
+const INITIAL_STATE = {
+  total_episodes: 0,
+  anime_info: {},
+  episodes: [],
+};
+
 export const AnimeDetailContextProvider = ({children}) => {
-  const [animeEpisodes, setAnimeEpisodes] = useState([]);
+  const [anime, setAnime] = useState(INITIAL_STATE);
   const [loading, setLoading] = useState(false);
 
   const getAnimeInfo = source => {
     let isCancelled = false;
     setLoading(true);
     return fetch(
-      `https://therealotakus.azurewebsites.net/episodes?source=${source}`,
+      `https://therealotakus.azurewebsites.net/anime?source=${source}`,
       {
         method: 'GET',
         headers: {
@@ -22,7 +28,7 @@ export const AnimeDetailContextProvider = ({children}) => {
       .then(res => res.json())
       .then(data => {
         if (!isCancelled && data) {
-          setAnimeEpisodes(data);
+          setAnime(data);
           setLoading(false);
         }
       })
@@ -33,14 +39,17 @@ export const AnimeDetailContextProvider = ({children}) => {
       });
   };
 
+  const reset = () => setAnime(INITIAL_STATE);
+
   return (
     <AnimeDetailContext.Provider
       value={{
-        animeEpisodes,
+        anime,
         getAnimeInfo,
         loading,
         setLoading,
-        setAnimeEpisodes,
+        setAnime,
+        reset,
       }}>
       {children}
     </AnimeDetailContext.Provider>

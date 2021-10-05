@@ -36,11 +36,7 @@ const Backdrop = styled.View`
   background-color: rgba(255, 255, 255, 0.8);
 `;
 
-const Container = styled.ImageBackground.attrs({
-  source: require('../../assets/images/home-bg.jpg'),
-  resizeMode: 'cover',
-  blurRadius: 3,
-})`
+const Container = styled.View`
   flex: 1;
 `;
 

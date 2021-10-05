@@ -1,34 +1,33 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components/native';
 import {List} from 'react-native-paper';
 import FavoritesButton from '../FavoritesButton';
+import {SelectedAnimeContext} from '../../context/SelectedAnimeContext';
 
-function AnimeHeaderInfo({anime}) {
-  const {anime_info} = anime;
+function AnimeHeaderInfo({animeInfo}) {
+  // const {anime_info} = anime;
+  const {selectedAnime} = useContext(SelectedAnimeContext);
   return (
     <Wrapper>
       <InfoWrapper>
-        <AnimeImage resizeMode="cover" source={{uri: anime.image}} />
+        <AnimeImage resizeMode="cover" source={{uri: selectedAnime.image}} />
       </InfoWrapper>
       <InfoWrapper>
         <List.Item
           title="Released"
-          description={anime_info.released || 'Not Found'}
+          description={animeInfo.released || 'Not Found'}
         />
         <List.Item
           title="Status"
-          description={anime_info.status || 'Not Found'}
+          description={animeInfo.status || 'Not Found'}
         />
-        <List.Item
-          title="Genre"
-          description={anime_info.genre || 'Not Found'}
-        />
+        <List.Item title="Genre" description={animeInfo.genre || 'Not Found'} />
         <List.Item
           title="Other Names"
-          description={anime_info.other_names || 'Not Found'}
+          description={animeInfo.other_names || 'Not Found'}
         />
       </InfoWrapper>
-      <FavoritesButton anime={anime} />
+      <FavoritesButton anime={selectedAnime} />
     </Wrapper>
   );
 }

@@ -1,22 +1,18 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {Button} from 'react-native-paper';
 import styled from 'styled-components/native';
 
-function VideoQualityItem({text, url}) {
-  const navigation = useNavigation();
-
+function VideoQualityItem({text, icon, color, onPress}) {
   return (
     <Wrapper>
       <Button
         labelStyle={styles.labelStyle}
         contentStyle={{alignSelf: 'flex-start', marginLeft: '10%'}}
-        icon="video"
+        color={color}
+        icon={icon}
         mode="link"
-        onPress={() => {
-          navigation.navigate('video', {url: url});
-        }}>
+        onPress={() => onPress()}>
         {text}
       </Button>
     </Wrapper>
@@ -29,7 +25,7 @@ const Wrapper = styled.View`
 
 const styles = StyleSheet.create({
   labelStyle: {
-    fontSize: 20,
+    fontSize: 16,
   },
 });
 

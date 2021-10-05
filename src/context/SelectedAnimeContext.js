@@ -3,9 +3,9 @@ import React, {createContext, useState} from 'react';
 export const SelectedAnimeContext = createContext();
 
 export const SelectedAnimeContextProvider = ({children}) => {
-  const [anime, setAnime] = useState({});
+  const [selectedAnime, setSelectedAnime] = useState({});
   return (
-    <SelectedAnimeContext.Provider value={{anime, setAnime}}>
+    <SelectedAnimeContext.Provider value={{selectedAnime, setSelectedAnime}}>
       {children}
     </SelectedAnimeContext.Provider>
   );

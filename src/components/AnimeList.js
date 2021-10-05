@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import AnimeItem from './AnimeItem';
 import {Colors} from 'react-native-paper';
 
-function AnimeList({animeList, title, children}) {
+function AnimeList({animeList, title, footer}) {
   return (
     <Container>
       <FlatList
@@ -15,6 +15,8 @@ function AnimeList({animeList, title, children}) {
         keyExtractor={item => item.name}
         ListHeaderComponent={title ? <ListTitle>{title}</ListTitle> : null}
         columnWrapperStyle={FlatListStyles.column}
+        ListFooterComponentStyle={FlatListStyles.footer}
+        ListFooterComponent={footer}
       />
     </Container>
   );
@@ -26,6 +28,9 @@ const FlatListStyles = StyleSheet.create({
   },
   column: {
     flex: 1,
+  },
+  footer: {
+    alignSelf: 'center',
   },
 });
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Linking, Share} from 'react-native';
 import {Paragraph, Button} from 'react-native-paper';
 import styled from 'styled-components/native';
@@ -72,11 +72,11 @@ function AboutScreen() {
   );
 }
 
-const VersionText = styled.Text`
-  font-size: 20px;
-  font-weight: 400;
-  margin-bottom: 50px;
-`;
+// const VersionText = styled.Text`
+//   font-size: 20px;
+//   font-weight: 400;
+//   margin-bottom: 50px;
+// `;
 
 const BackgroundImage = styled.ImageBackground.attrs({
   source: require('../../assets/images/drawer.jpg'),

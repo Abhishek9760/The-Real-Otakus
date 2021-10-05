@@ -7,6 +7,8 @@ import PlayerScreen from '../screens/PlayerScreen';
 import AboutScreen from '../screens/AboutScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import {Colors} from 'react-native-paper';
+import GenreScreen from '../screens/GenreScreen';
+import GenreAnimeListScreen from '../screens/GenreAnimeListScreen';
 
 const Stack = createStackNavigator();
 
@@ -52,4 +54,31 @@ const AboutStackNavigator = () => {
   );
 };
 
-export {MainStackNavigator, AboutStackNavigator};
+const GenreStackNavigator = () => {
+  return (
+    <Stack.Navigator initialRouteName="genre">
+      <Stack.Screen
+        name="genre"
+        component={GenreScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="genreanimelist"
+        component={GenreAnimeListScreen}
+        options={{headerShown: true, title: 'Loading...'}}
+      />
+      <Stack.Screen
+        name="anime"
+        component={AnimeScreen}
+        options={{headerTitle: 'Loading...'}}
+      />
+      <Stack.Screen
+        name="player"
+        component={PlayerScreen}
+        options={{headerTitle: 'Choose Quality'}}
+      />
+    </Stack.Navigator>
+  );
+};
+
+export {MainStackNavigator, AboutStackNavigator, GenreStackNavigator};

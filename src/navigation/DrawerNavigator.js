@@ -2,10 +2,13 @@ import React from 'react';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import {AboutStackNavigator, MainStackNavigator} from './StackNavigator';
+import {
+  AboutStackNavigator,
+  GenreStackNavigator,
+  MainStackNavigator,
+} from './StackNavigator';
 import {Colors, IconButton} from 'react-native-paper';
 import SearchButton from '../components/SearchButton';
-import VideoPlayerScreen from '../screens/VideoPlayerScreen';
 import CustomDrawerContent from './CustomDrawerContent';
 
 import styled from 'styled-components/native';
@@ -46,20 +49,15 @@ const DrawerNavigator = () => {
               />
             </Wrapper>
           ),
+          unmountOnBlur: true,
         }}
+      />
+      <Drawer.Screen
+        name="Genre"
+        component={GenreStackNavigator}
+        options={{unmountOnBlur: true}}
       />
       <Drawer.Screen name="About" component={AboutStackNavigator} />
-      {/* <Drawer.Screen name="Favourites" component={FavouritesStackNavigator} /> */}
-      <Drawer.Screen
-        name="video"
-        component={VideoPlayerScreen}
-        options={{
-          headerShown: false,
-          unmountOnBlur: true,
-          swipeEnabled: false,
-          gestureEnabled: false,
-        }}
-      />
     </Drawer.Navigator>
   );
 };

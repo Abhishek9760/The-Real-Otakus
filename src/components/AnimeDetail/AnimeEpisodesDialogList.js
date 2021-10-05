@@ -1,6 +1,5 @@
-import React, {useState, useContext, useMemo, useEffect} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import styled from 'styled-components/native';
-import {AnimeDetailContext} from '../../context/AnimeDetailContext';
 import {
   Button,
   Divider,
@@ -9,22 +8,17 @@ import {
   RadioButton,
   Dialog,
   Card,
+  Badge,
 } from 'react-native-paper';
-import {Dimensions, FlatList} from 'react-native';
+import {Dimensions, FlatList, Text} from 'react-native';
 import Modal from 'react-native-modal';
 import {useNavigation} from '@react-navigation/native';
 import {inRange, findLink} from '../../utils';
-import TryAgain from '../utils/TryAgain';
-import {SelectedAnimeContext} from '../../context/SelectedAnimeContext';
-
-function AnimeEpisodesDialogList({totalEp}) {
-  const {animeEpisodes, loading, getAnimeInfo, setAnimeEpisodes} =
-    useContext(AnimeDetailContext);
-  const {anime} = useContext(SelectedAnimeContext);
+function AnimeEpisodesDialogList({totalEp, animeEpisodes}) {
   const [ep, setEp] = useState(''); // List state
   const [singleEp, setSingleEp] = useState(''); // Text input state
 
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
 
   const [showSingleEpModal, setShowSingleEpModal] = useState(false);
   const [showListModal, setShowListModal] = useState(false);
@@ -42,44 +36,28 @@ function AnimeEpisodesDialogList({totalEp}) {
   const memotizedRenderItem = useMemo(() => renderItem, []);
 
   useEffect(() => {
-    setAnimeEpisodes([]);
-    // setSingleEp(Object.keys(animeEpisodes)[0]);
-    () => setAnimeEpisodes([]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [anime]);
-
-  useEffect(() => {
     if (animeEpisodes.length) {
       let firstEp = Object.keys(animeEpisodes[0])[0];
       setSingleEp(firstEp);
-      setDisabled(false);
     }
   }, [animeEpisodes]);
 
-  console.log(anime.name, 'from list');
-
   return (
     <>
-      <Title>Watch</Title>
+      <RowView>
+        <Title>Watch</Title>
+        <EpisodesNum size={22}>{totalEp}</EpisodesNum>
+      </RowView>
       <Divider />
       <Wrapper>
         {animeEpisodes.length === 0 ? (
-          <TryAgain
-            loading={loading}
-            reload={() => getAnimeInfo(anime.source)}
-          />
+          <Text>No Episodes found!</Text>
         ) : (
           <>
-            <Button
-              mode="text"
-              disabled={loading}
-              onPress={() => setShowListModal(true)}>
+            <Button mode="text" onPress={() => setShowListModal(true)}>
               All Episodes
             </Button>
-            <Button
-              mode="contained"
-              disabled={loading}
-              onPress={() => setShowSingleEpModal(true)}>
+            <Button mode="contained" onPress={() => setShowSingleEpModal(true)}>
               Watch Single Episode
             </Button>
           </>
@@ -167,6 +145,15 @@ const Wrapper = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+`;
+
+const RowView = styled.View`
+  flex-direction: row;
+`;
+
+const EpisodesNum = styled(Badge)`
+  margin: 5px;
+  margin-left: 10px;
 `;
 
 export default AnimeEpisodesDialogList;

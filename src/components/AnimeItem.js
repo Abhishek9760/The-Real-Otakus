@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
-import {Colors, Badge} from 'react-native-paper';
+import {Colors} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {AnimeListContext} from '../context/AnimeListContext';
 import {SelectedAnimeContext} from '../context/SelectedAnimeContext';
@@ -10,17 +10,17 @@ import {AnimeDetailContext} from '../context/AnimeDetailContext';
 function AnimeItem({anime}) {
   const navigation = useNavigation();
   const {setAnimeListModal} = useContext(AnimeListContext);
-  const {setAnime} = useContext(SelectedAnimeContext);
+  const {setSelectedAnime} = useContext(SelectedAnimeContext);
   const {getAnimeInfo} = useContext(AnimeDetailContext);
 
   return (
     <Card
       onPress={() => {
         // console.log(anime);
-        setAnime(anime);
+        setSelectedAnime(anime);
         setAnimeListModal(false);
         getAnimeInfo(anime.source);
-        navigation.navigate('anime');
+        navigation.navigate('anime', {source: anime.source});
       }}>
       <CardWrapper>
         <Image
@@ -33,7 +33,6 @@ function AnimeItem({anime}) {
         <CardContent>
           <CardText>{anime.name}</CardText>
         </CardContent>
-        <EpisodesBadge>{anime.total_episodes}</EpisodesBadge>
       </CardWrapper>
     </Card>
   );
@@ -70,13 +69,13 @@ const CardWrapper = styled.View`
   border-radius: 10px;
 `;
 
-const EpisodesBadge = styled(Badge).attrs({
-  size: 20,
-})`
-  position: absolute;
-  top: -5%;
-  right: -5%;
-`;
+// const EpisodesBadge = styled(Badge).attrs({
+//   size: 20,
+// })`
+//   position: absolute;
+//   top: -5%;
+//   right: -5%;
+// `;
 
 const CardContent = styled.View`
   padding: 10px 0;

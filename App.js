@@ -12,6 +12,7 @@ import {SelectedAnimeContextProvider} from './src/context/SelectedAnimeContext';
 import SplashScreen from 'react-native-splash-screen';
 import {FavouritesContextProvider} from './src/context/FavouritesContext';
 import {PopularAnimeContextProvider} from './src/context/PopularAnimeContext';
+import {GenreContextProvider} from './src/context/GenreContext';
 
 // Alert.alert(
 //   'New Update Available 🎉',
@@ -46,23 +47,25 @@ const App = () => {
     <PopularAnimeContextProvider>
       <AnimeListContextProvider>
         <SearchContextProvider>
-          <SelectedAnimeContextProvider>
-            <FavouritesContextProvider>
-              <AnimeDetailContextProvider>
-                <PlayerContextProvider>
-                  <NavigationContainer>
-                    <StatusBar
-                      animated={true}
-                      backgroundColor="#512da8"
-                      barStyle="light-content"
-                      translucent
-                    />
-                    <DrawerNavigator />
-                  </NavigationContainer>
-                </PlayerContextProvider>
-              </AnimeDetailContextProvider>
-            </FavouritesContextProvider>
-          </SelectedAnimeContextProvider>
+          <GenreContextProvider>
+            <SelectedAnimeContextProvider>
+              <FavouritesContextProvider>
+                <AnimeDetailContextProvider>
+                  <PlayerContextProvider>
+                    <NavigationContainer>
+                      <StatusBar
+                        animated={true}
+                        backgroundColor="#512da8"
+                        barStyle="light-content"
+                        translucent
+                      />
+                      <DrawerNavigator />
+                    </NavigationContainer>
+                  </PlayerContextProvider>
+                </AnimeDetailContextProvider>
+              </FavouritesContextProvider>
+            </SelectedAnimeContextProvider>
+          </GenreContextProvider>
         </SearchContextProvider>
       </AnimeListContextProvider>
     </PopularAnimeContextProvider>
