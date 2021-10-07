@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect} from 'react';
+import React, {createContext, useState} from 'react';
 import {showToast} from '../utils';
 
 export const GenreContext = createContext();
@@ -9,6 +9,7 @@ export const GenreContextProvider = ({children}) => {
   const [genreListLoading, setGenreListLoading] = useState(false);
   const [genreAnimeListLoading, setGenreAnimeListLoading] = useState(false);
   const [error, setError] = useState('');
+  // const [genreListError, setGenreListError] = useState(false);
 
   const reset = () => setGenreAnimeList([]);
 
@@ -17,10 +18,12 @@ export const GenreContextProvider = ({children}) => {
     fetch('https://therealotakus.azurewebsites.net/genre')
       .then(res => res.json())
       .then(data => {
+        setError('');
         setGenreList(data);
         setGenreListLoading(false);
       })
       .catch(err => {
+        setError(err.message);
         showToast(err.message);
         console.log(err);
         setGenreListLoading(false);
@@ -44,15 +47,12 @@ export const GenreContextProvider = ({children}) => {
       });
   };
 
-  useEffect(() => {
-    getGenreList();
-  }, []);
-
   return (
     <GenreContext.Provider
       value={{
         genreList,
         getGenreAnimeList,
+        getGenreList,
         genreListLoading,
         genreAnimeListLoading,
         genreAnimeList,

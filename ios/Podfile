@@ -22,6 +22,8 @@ target 'TheRealOtakus' do
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
+  pod 'react-native-version-info', :path => '../node_modules/react-native-version-info'
+
   target 'TheRealOtakusTests' do
     inherit! :complete
     # Pods for testing

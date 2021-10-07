@@ -10,8 +10,11 @@ export const PlayerContextProvider = ({children}) => {
   const [paused, setPaused] = useState(false);
   const [currentUrl, setCurrentUrl] = useState('');
   const [playerVisible, setPlayerVisible] = useState(false);
+  const [vidUrlsLoading, setVidUrlsLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const getVidDownloadLinks = epLink => {
+    setVidUrlsLoading(true);
     return fetch(
       `https://therealotakus.azurewebsites.net/episode?episode_link=${epLink}`,
     )
@@ -31,12 +34,21 @@ export const PlayerContextProvider = ({children}) => {
           delete data[1].Xstreamcdn;
           setVidUrls(data);
         }
+        setError('');
+        setVidUrlsLoading(false);
       })
       .catch(err => {
         console.log(err);
         showToast(err.message);
-        return {};
+        setError(err.message);
+        setVidUrlsLoading(false);
       });
+  };
+
+  const reset = () => {
+    setVidUrls([]);
+    setError('');
+    setVidUrlsLoading(true);
   };
   return (
     <PlayerContext.Provider
@@ -52,6 +64,9 @@ export const PlayerContextProvider = ({children}) => {
         playerVisible,
         setPlayerVisible,
         currentUrl,
+        error,
+        vidUrlsLoading,
+        reset,
       }}>
       {children}
     </PlayerContext.Provider>

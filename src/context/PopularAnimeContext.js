@@ -5,7 +5,7 @@ export const PopularAnimeContext = createContext();
 
 export const PopularAnimeContextProvider = ({children}) => {
   const [popular, setPopular] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const getPopular = (page = 1) => {

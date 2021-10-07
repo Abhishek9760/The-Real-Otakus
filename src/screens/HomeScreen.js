@@ -4,6 +4,7 @@ import {AnimeListContext} from '../context/AnimeListContext';
 import {Modal} from 'react-native';
 import PopularAnimeList from '../components/PopularAnimeList';
 import SearchAnimeList from '../components/SearchAnimeList';
+import BannerInfo from '../components/utils/BannerInfo';
 
 function HomeScreen() {
   const {animeListModal, setAnimeListModal, reset} =
@@ -25,6 +26,7 @@ function HomeScreen() {
             </Backdrop>
           </Container>
         </Modal>
+        <BannerInfo />
         <PopularAnimeList />
       </Backdrop>
     </Container>

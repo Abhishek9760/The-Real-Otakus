@@ -13,20 +13,26 @@ import SplashScreen from 'react-native-splash-screen';
 import {FavouritesContextProvider} from './src/context/FavouritesContext';
 import {PopularAnimeContextProvider} from './src/context/PopularAnimeContext';
 import {GenreContextProvider} from './src/context/GenreContext';
+import {getAppInfo, getBannerShow, getData, storeAppInfo, storeBannerShow} from './src/utils';
+import VersionInfo from 'react-native-version-info';
+import lodash from 'lodash';
 
-// Alert.alert(
-//   'New Update Available 🎉',
-//   'To continue enjoy free animes, Please update your app.',
-//   [
-//     {
-//       text: 'Update',
-//       onPress: () => {
-//         BackHandler.exitApp();
-//         Linking.openURL(updateNeeded.storeUrl);
-//       },
-//     },
-//   ],
-// );
+const updateNeeded = () => {
+  return Alert.alert(
+    'New Update Available',
+    'To continue enjoy free animes, Please update your app.',
+    [
+      {
+        text: 'Update',
+        onPress: () => {
+          BackHandler.exitApp();
+          Linking.openURL('https://therealotakus.live');
+        },
+        style: 'default',
+      },
+    ],
+  );
+};
 
 const App = () => {
   useEffect(() => {
@@ -40,6 +46,26 @@ const App = () => {
     changeColor();
     Orientation.lockToPortrait();
     SplashScreen.hide();
+    getData().then(data => {
+      if (data) {
+        getBannerShow().then(val => {
+          if(val !== 'false' && data.show_message) {
+            storeBannerShow('true')
+          }
+        })
+        getAppInfo().then(apiData => {
+          if (!lodash.isEqual(apiData, data)) {
+            storeBannerShow('true');
+            storeAppInfo(apiData);
+          }
+        });
+        if (VersionInfo.appVersion < data.version) {
+          updateNeeded();
+        }
+      } else {
+        storeAppInfo();
+      }
+    });
     // analytics().setUserId(getUniqueId());
   }, []);
 
