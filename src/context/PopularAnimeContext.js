@@ -8,6 +8,12 @@ export const PopularAnimeContextProvider = ({children}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const reset = () => {
+    setPopular([]);
+    setLoading(false);
+    setError('');
+  };
+
   const getPopular = (page = 1) => {
     setLoading(true);
     fetch(`https://therealotakus.azurewebsites.net/popular?page=${page}`)
@@ -26,7 +32,7 @@ export const PopularAnimeContextProvider = ({children}) => {
   };
   return (
     <PopularAnimeContext.Provider
-      value={{popular, setPopular, getPopular, loading, error}}>
+      value={{popular, setPopular, getPopular, loading, error, reset}}>
       {children}
     </PopularAnimeContext.Provider>
   );

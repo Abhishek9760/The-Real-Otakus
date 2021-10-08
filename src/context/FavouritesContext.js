@@ -37,7 +37,6 @@ export const FavouritesContextProvider = ({children}) => {
   }, [favourites]);
 
   const addToFavourites = item => {
-    console.log('adding...');
     let data = {...favourites};
     data[item.name] = item;
     setFavourites(data);

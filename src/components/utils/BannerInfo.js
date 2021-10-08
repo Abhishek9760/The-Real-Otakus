@@ -9,12 +9,10 @@ function BannerInfo() {
 
   useEffect(() => {
     getData().then(data => {
-      console.log(data);
       if (data) {
         getBannerShow().then(val => {
-          console.log('value is ', val);
-          if(val === 'true'){
-            setVisible(true)
+          if (val === 'true') {
+            setVisible(true);
           }
         });
         setMessage(data.message);

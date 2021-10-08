@@ -7,13 +7,18 @@ import Loader from './utils/Loader';
 import TryAgain from './utils/TryAgain';
 
 function PopularAnimeList() {
-  const {getPopular, popular, error, loading} = useContext(PopularAnimeContext);
+  const {getPopular, popular, error, loading, reset} =
+    useContext(PopularAnimeContext);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     getPopular(page);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => () => reset(), []);
 
   const loadMore = () => (
     <Button

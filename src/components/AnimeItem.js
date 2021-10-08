@@ -16,7 +16,6 @@ function AnimeItem({anime}) {
   return (
     <Card
       onPress={() => {
-        // console.log(anime);
         setSelectedAnime(anime);
         setAnimeListModal(false);
         getAnimeInfo(anime.source);
@@ -31,7 +30,9 @@ function AnimeItem({anime}) {
           resizeMode="cover"
         />
         <CardContent>
-          <CardText>{anime.name}</CardText>
+          <CardText numberOfLines={2} ellipsizeMode="tail">
+            {anime.name}
+          </CardText>
         </CardContent>
       </CardWrapper>
     </Card>
@@ -64,9 +65,12 @@ const CardText = styled.Text`
 
 const CardWrapper = styled.View`
   flex: 1;
-  background-color: ${Colors.deepPurple400};
+  background-color: ${Colors.deepPurple600};
   align-items: center;
   border-radius: 10px;
+  border: 1px solid ${Colors.deepPurple900};
+  overflow: hidden;
+  elevation: 5;
 `;
 
 // const EpisodesBadge = styled(Badge).attrs({

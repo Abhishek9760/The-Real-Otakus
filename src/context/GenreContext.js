@@ -35,9 +35,11 @@ export const GenreContextProvider = ({children}) => {
     fetch(`https://therealotakus.azurewebsites.net/genre/${genre}?page=${page}`)
       .then(res => res.json())
       .then(data => {
-        setError('');
-        setGenreAnimeList([...genreAnimeList, ...data]);
-        setGenreAnimeListLoading(false);
+        if (data) {
+          setError('');
+          setGenreAnimeList([...genreAnimeList, ...data]);
+          setGenreAnimeListLoading(false);
+        }
       })
       .catch(err => {
         setError(err.message);

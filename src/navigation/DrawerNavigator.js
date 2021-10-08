@@ -25,7 +25,6 @@ const DrawerNavigator = () => {
       screenOptions={{
         headerTintColor: '#fff',
         headerStyle: {backgroundColor: Colors.deepPurple600},
-
         headerTitleStyle: {fontFamily: 'Stentiga'},
         drawerContentStyle: {backgroundColor: '#ffffff'},
         drawerLabelStyle: {

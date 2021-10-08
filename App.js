@@ -13,7 +13,13 @@ import SplashScreen from 'react-native-splash-screen';
 import {FavouritesContextProvider} from './src/context/FavouritesContext';
 import {PopularAnimeContextProvider} from './src/context/PopularAnimeContext';
 import {GenreContextProvider} from './src/context/GenreContext';
-import {getAppInfo, getBannerShow, getData, storeAppInfo, storeBannerShow} from './src/utils';
+import {
+  getAppInfo,
+  getBannerShow,
+  getData,
+  storeAppInfo,
+  storeBannerShow,
+} from './src/utils';
 import VersionInfo from 'react-native-version-info';
 import lodash from 'lodash';
 
@@ -49,10 +55,10 @@ const App = () => {
     getData().then(data => {
       if (data) {
         getBannerShow().then(val => {
-          if(val !== 'false' && data.show_message) {
-            storeBannerShow('true')
+          if (val !== 'false' && data.show_message) {
+            storeBannerShow('true');
           }
-        })
+        });
         getAppInfo().then(apiData => {
           if (!lodash.isEqual(apiData, data)) {
             storeBannerShow('true');

@@ -28,7 +28,7 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="anime"
         component={AnimeScreen}
-        options={{headerTitle: 'Loading...'}}
+        options={{headerTitle: 'Loading...', headerTitleStyle: {fontSize: 18}}}
       />
       <Stack.Screen
         name="player"
@@ -70,7 +70,7 @@ const GenreStackNavigator = () => {
       <Stack.Screen
         name="anime"
         component={AnimeScreen}
-        options={{headerTitle: 'Loading...'}}
+        options={{headerTitle: 'Loading...', headerTitleStyle: {fontSize: 18}}}
       />
       <Stack.Screen
         name="player"

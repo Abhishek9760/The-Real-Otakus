@@ -4,27 +4,19 @@ import Loader from '../components/utils/Loader';
 import VideoQuality from '../components/VideoPlayer/VideoQuality';
 import TryAgain from '../components/utils/TryAgain';
 import styled from 'styled-components/native';
-import {Text} from 'react-native';
 
 function PlayerScreen({route}) {
   const {link} = route.params;
-  const {vidUrls, getVidDownloadLinks, reset, vidUrlsLoading, error} =
+  const {getVidDownloadLinks, reset, vidUrlsLoading, error} =
     useContext(PlayerContext);
 
   useEffect(() => {
     if (link) {
       getVidDownloadLinks(link);
     }
+    () => reset();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [link]);
-
-  useEffect(
-    () => () => {
-      console.log('back...');
-      reset();
-    },
-    [],
-  );
 
   return (
     <Container>

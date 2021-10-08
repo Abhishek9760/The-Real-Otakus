@@ -36,7 +36,6 @@ export const getAppInfo = () => {
 };
 
 export const storeAppInfo = (apiData = null) => {
-  console.log('calling storeapp info');
   if (apiData) {
     storeData(apiData);
   } else {
@@ -67,21 +66,21 @@ export const getData = async () => {
   }
 };
 
-export const storeBannerShow = async (value) => {
+export const storeBannerShow = async value => {
   try {
-    await AsyncStorage.setItem('@banner_show', value)
+    await AsyncStorage.setItem('@banner_show', value);
   } catch (e) {
     // saving error
-    console.log(e)
+    console.log(e);
   }
-}
+};
 
 export const getBannerShow = async () => {
   try {
-    const value = await AsyncStorage.getItem('@banner_show')
+    const value = await AsyncStorage.getItem('@banner_show');
     return value;
-  } catch(e) {
+  } catch (e) {
     // error reading value
-    console.log(e)
+    console.log(e);
   }
-}
+};

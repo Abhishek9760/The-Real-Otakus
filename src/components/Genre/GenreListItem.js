@@ -1,7 +1,8 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
+import {Colors} from 'react-native-paper';
 
 function GenreListItem({item}) {
   const navigation = useNavigation();
@@ -9,7 +10,9 @@ function GenreListItem({item}) {
     <TouchableOpacity
       onPress={() => navigation.navigate('genreanimelist', {item: item})}>
       <Wrapper>
-        <WrapperText>{item}</WrapperText>
+        <WrapperText numberOfLines={1} ellipsizeMode="tail">
+          {item}
+        </WrapperText>
       </Wrapper>
     </TouchableOpacity>
   );
@@ -17,13 +20,15 @@ function GenreListItem({item}) {
 
 const Wrapper = styled.View`
   padding: 8px;
-  background-color: #db386e;
+  background-color: ${Colors.deepPurple600};
+  border: 1px solid ${Colors.deepPurple100};
   margin: 1px;
   width: 85px;
   height: 85px;
   border-radius: 2px;
   align-items: center;
   justify-content: center;
+  elevation: 1;
 `;
 
 const WrapperText = styled.Text`
