@@ -30,6 +30,7 @@ function AnimeVideoPlayer({url}) {
         onBack={() => setPlayerVisible(false)}
         tapAnywhereToPause
         fullscreen
+        controlTimeout={3000}
       />
     </Container>
   );

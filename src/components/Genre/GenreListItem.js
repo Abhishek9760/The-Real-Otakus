@@ -23,9 +23,9 @@ const Wrapper = styled.View`
   background-color: ${Colors.deepPurple600};
   border: 1px solid ${Colors.deepPurple100};
   margin: 1px;
+  height: 80px;
   width: 85px;
-  height: 85px;
-  border-radius: 2px;
+  border-radius: 10px;
   align-items: center;
   justify-content: center;
   elevation: 1;

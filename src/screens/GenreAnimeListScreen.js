@@ -38,7 +38,7 @@ function GenreAnimeListScreen({route, navigation}) {
       onPress={() => setPage(page + 1)}
       icon="progress-download"
       loading={genreAnimeListLoading}
-      disabled={genreAnimeListLoading}>
+      disabled={genreAnimeListLoading || genreAnimeList.length < 20}>
       Load More
     </Button>
   );

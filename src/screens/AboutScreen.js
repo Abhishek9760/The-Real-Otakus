@@ -2,6 +2,7 @@ import React from 'react';
 import {Linking, Share} from 'react-native';
 import {Paragraph, Button} from 'react-native-paper';
 import styled from 'styled-components/native';
+import VersionInfo from 'react-native-version-info';
 
 const INFO = {
   facebook_page_uri: 'https://www.facebook.com/theRealOtakus',
@@ -66,17 +67,18 @@ function AboutScreen() {
             onPress={() => Linking.openURL(INFO.instagram_url)}>
             Follow
           </Button>
+          <VersionText>{VersionInfo.appVersion}</VersionText>
         </Social>
       </Wrapper>
     </BackgroundImage>
   );
 }
 
-// const VersionText = styled.Text`
-//   font-size: 20px;
-//   font-weight: 400;
-//   margin-bottom: 50px;
-// `;
+const VersionText = styled.Text`
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 50px;
+`;
 
 const BackgroundImage = styled.ImageBackground.attrs({
   source: require('../../assets/images/drawer.jpg'),

@@ -12,9 +12,11 @@ import {
   Image,
   View,
   Text,
+  TextInput,
 } from 'react-native';
 import padStart from 'lodash/padStart';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {IconButton} from 'react-native-paper';
 
 export default class VideoPlayer extends Component {
   static defaultProps = {
@@ -944,6 +946,7 @@ export default class VideoPlayer extends Component {
     const fullscreenControl = this.props.disableFullscreen
       ? this.renderNullControl()
       : this.renderFullscreen();
+    const rateControl = this.renderRateControl();
 
     return (
       <Animated.View
@@ -960,6 +963,7 @@ export default class VideoPlayer extends Component {
           imageStyle={[styles.controls.vignette]}>
           <SafeAreaView style={styles.controls.topControlGroup}>
             {backControl}
+            {rateControl}
             <View style={styles.controls.pullRight}>
               {volumeControl}
               {fullscreenControl}
@@ -1008,9 +1012,19 @@ export default class VideoPlayer extends Component {
     );
   }
 
-  renderSkipButtons(skip = 'back') {
+  renderSkipButtons(skip) {
     return (
-      <TouchableWithoutFeedback
+      <IconButton
+        icon={() => {
+          return (
+            <Icon
+              style={styles.controls.centerIcons}
+              name={skip === 'back' ? 'replay-10' : 'forward-10'}
+              size={30}
+              color="#fff"
+            />
+          );
+        }}
         onPress={() => {
           if (this.player) {
             const seekTo =
@@ -1018,14 +1032,51 @@ export default class VideoPlayer extends Component {
                 ? this.state.currentTime - 10
                 : this.state.currentTime + 10;
             this.player.ref.seek(seekTo);
+            this.resetControlTimeout();
           }
-        }}>
-        <Icon
-          style={styles.controls.centerIcons}
-          name={skip === 'back' ? 'replay-10' : 'forward-10'}
-          size={30}
-        />
-      </TouchableWithoutFeedback>
+        }}
+      />
+    );
+  }
+
+  // VIDEO RATE
+  renderRateControl() {
+    return (
+      <View style={{flex: 1}}>
+        <View style={styles.rate.container}>
+          <IconButton
+            icon="minus-circle-outline"
+            color="#fff"
+            disabled={this.state.rate === 0.2}
+            onPress={() => {
+              if (this.state.rate > 0.2) {
+                const rate = this.state.rate - 0.2;
+                this.setState({
+                  rate: parseFloat(rate.toFixed(1)),
+                });
+                this.resetControlTimeout();
+              }
+            }}
+            size={30}
+          />
+          <Text style={styles.rate.text}>{this.state.rate}</Text>
+          <IconButton
+            icon="plus-circle-outline"
+            color="#fff"
+            disabled={this.state.rate === 3}
+            onPress={() => {
+              if (this.state.rate < 3) {
+                const rate = this.state.rate + 0.2;
+                this.setState({
+                  rate: parseFloat(rate.toFixed(1)),
+                });
+                this.resetControlTimeout();
+              }
+            }}
+            size={30}
+          />
+        </View>
+      </View>
     );
   }
 
@@ -1339,9 +1390,7 @@ const styles = {
       width: '90%',
     },
     centerIcons: {
-      padding: 5,
-      color: '#fff',
-      borderRadius: 1000,
+      borderRadius: 15,
       backgroundColor: 'rgba(0,0,0,.5)',
     },
     column: {
@@ -1491,6 +1540,24 @@ const styles = {
       left: 8,
       height: 12,
       width: 12,
+    },
+  }),
+  rate: StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      alignSelf: 'flex-end',
+      borderRadius: 5,
+    },
+
+    text: {
+      color: '#fff',
+      fontSize: 15,
+      fontWeight: 'bold',
+      width: 22,
+      textAlign: 'center',
+      backgroundColor: 'rgba(0,0,0,.5)',
+      borderRadius: 2,
     },
   }),
 };
