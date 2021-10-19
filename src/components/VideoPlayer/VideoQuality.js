@@ -13,6 +13,8 @@ const VideoQuality = () => {
     <Wrapper>
       <VideoQualityList />
       <Modal
+        animationIn="flipInY"
+        animationOut="flipOutY"
         style={{margin: 0}}
         isVisible={playerVisible}
         useNativeDriver

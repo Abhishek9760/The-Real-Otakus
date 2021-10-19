@@ -22,7 +22,7 @@ Visit ${INFO.site_url} for download.`,
 
 function AboutScreen() {
   return (
-    <BackgroundImage>
+    <>
       <Wrapper>
         <WrapperImage
           resizeMode="cover"
@@ -48,45 +48,45 @@ function AboutScreen() {
         <DescriptionText>Contact Us</DescriptionText>
         <Social>
           <Button
+            compact
             icon="facebook"
             mode="text"
             onPress={() => Linking.openURL(INFO.facebook_page_uri)}>
             Follow
           </Button>
-          <VerticalLine />
+          <HorizontalLine />
           <Button
+            compact
             icon="facebook-messenger"
             mode="text"
             onPress={() => Linking.openURL(INFO.facebook_group_uri)}>
             Join Group
           </Button>
-          <VerticalLine />
+          <HorizontalLine />
           <Button
+            compact
             icon="instagram"
             mode="text"
             onPress={() => Linking.openURL(INFO.instagram_url)}>
             Follow
           </Button>
-          <VersionText>{VersionInfo.appVersion}</VersionText>
         </Social>
+        <VersionText>Version {VersionInfo.appVersion}</VersionText>
       </Wrapper>
-    </BackgroundImage>
+    </>
   );
 }
 
 const VersionText = styled.Text`
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 400;
-  margin-bottom: 50px;
+  margin: 20px 0;
+  font-family: 'Stentiga';
+  align-self: center;
+  color: ${props => props.theme.SECONDARY_TEXT_COLOR};
 `;
 
-const BackgroundImage = styled.ImageBackground.attrs({
-  source: require('../../assets/images/drawer.jpg'),
-})`
-  flex: 1;
-`;
-
-const VerticalLine = styled.View`
+const HorizontalLine = styled.View`
   background-color: #aa00ff;
   height: 1px;
   width: 25px;
@@ -103,7 +103,6 @@ const Social = styled.View`
 const Wrapper = styled.View`
   padding: 5px;
   flex: 1;
-  background-color: rgba(255, 255, 255, 0.896);
   align-items: center;
   width: 100%;
 `;
@@ -112,7 +111,6 @@ const DescriptionText = styled(Paragraph)`
   font-size: 18px;
   font-family: 'Stentiga';
   letter-spacing: 1px;
-  color: #161616;
   padding: 10px 0;
 `;
 

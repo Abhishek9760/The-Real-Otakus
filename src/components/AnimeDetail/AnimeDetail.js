@@ -45,8 +45,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const Wrapper = styled.ScrollView`
-  background-color: rgba(255, 255, 255, 0.7);
-`;
+const Wrapper = styled.ScrollView``;
 
 export default AnimeDetail;

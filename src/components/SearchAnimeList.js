@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import styled from 'styled-components/native';
 import {AnimeListContext} from '../context/AnimeListContext';
 import {SearchContext} from '../context/SearchContext';
@@ -6,12 +6,19 @@ import AnimeList from './AnimeList';
 import Loader from './utils/Loader';
 import TryAgain from './utils/TryAgain';
 import LottieView from 'lottie-react-native';
-import {FAB} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 
 function SearchAnimeList() {
-  const {animeList, error, loading, setAnimeListModal} =
-    useContext(AnimeListContext);
-  const {submit} = useContext(SearchContext);
+  const {animeList, error, loading} = useContext(AnimeListContext);
+  const {submit, query} = useContext(SearchContext);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (query) {
+      navigation.setOptions({title: `Search for ${query}`});
+    }
+  }, [navigation, query]);
+
   return (
     <Container>
       {loading ? (
@@ -29,11 +36,6 @@ function SearchAnimeList() {
           loop
         />
       )}
-      <CloseButton
-        small
-        icon="close"
-        onPress={() => setAnimeListModal(false)}
-      />
     </Container>
   );
 }
@@ -46,13 +48,6 @@ const Wrapper = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-`;
-
-const CloseButton = styled(FAB)`
-  position: absolute;
-  background-color: red;
-  left: 45%;
-  bottom: 5%;
 `;
 
 export default SearchAnimeList;

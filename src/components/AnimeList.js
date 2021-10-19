@@ -2,7 +2,6 @@ import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import styled from 'styled-components';
 import AnimeItem from './AnimeItem';
-import {Colors} from 'react-native-paper';
 
 function AnimeList({animeList, title, footer}) {
   return (
@@ -44,7 +43,7 @@ const ListTitle = styled.Text`
   padding: 10px 0;
   font-family: 'Paladise Script';
   letter-spacing: 3px;
-  color: ${Colors.purple800};
+  color: ${props => props.theme.SECONDARY_TEXT_COLOR};
 `;
 
 export default AnimeList;

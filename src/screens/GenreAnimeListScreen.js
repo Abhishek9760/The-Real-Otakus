@@ -60,7 +60,6 @@ function GenreAnimeListScreen({route, navigation}) {
 }
 
 const Container = styled.View`
-  background-color: #eee;
   flex: 1;
   justify-content: center;
 `;

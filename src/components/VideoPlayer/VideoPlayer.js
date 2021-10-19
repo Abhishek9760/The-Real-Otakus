@@ -12,7 +12,6 @@ import {
   Image,
   View,
   Text,
-  TextInput,
 } from 'react-native';
 import padStart from 'lodash/padStart';
 import Icon from 'react-native-vector-icons/MaterialIcons';

@@ -1,30 +1,29 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
-
-import {
-  AboutStackNavigator,
-  GenreStackNavigator,
-  MainStackNavigator,
-} from './StackNavigator';
 import {Colors, IconButton} from 'react-native-paper';
 import SearchButton from '../components/SearchButton';
 import CustomDrawerContent from './CustomDrawerContent';
 
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
+import HomeScreen from '../screens/HomeScreen';
+import GenreScreen from '../screens/GenreScreen';
+import AboutScreen from '../screens/AboutScreen';
+import {ThemeContext} from '../context/ThemeContext';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
+  const {theme} = useContext(ThemeContext);
   const navigation = useNavigation();
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawerContent {...props} />}
-      initialRouteName="Home"
+      initialRouteName="home"
       screenOptions={{
         headerTintColor: '#fff',
-        headerStyle: {backgroundColor: Colors.deepPurple600},
+        headerStyle: {backgroundColor: theme.drawer.BG_COLOR},
         headerTitleStyle: {fontFamily: 'Stentiga'},
         drawerContentStyle: {backgroundColor: '#ffffff'},
         drawerLabelStyle: {
@@ -35,7 +34,7 @@ const DrawerNavigator = () => {
       }}>
       <Drawer.Screen
         name="Home"
-        component={MainStackNavigator}
+        component={HomeScreen}
         options={{
           headerTitle: 'The Real Otakus',
           headerRight: () => (
@@ -48,15 +47,10 @@ const DrawerNavigator = () => {
               />
             </Wrapper>
           ),
-          unmountOnBlur: true,
         }}
       />
-      <Drawer.Screen
-        name="Genre"
-        component={GenreStackNavigator}
-        options={{unmountOnBlur: true}}
-      />
-      <Drawer.Screen name="About" component={AboutStackNavigator} />
+      <Drawer.Screen name="Genre" component={GenreScreen} />
+      <Drawer.Screen name="About" component={AboutScreen} />
     </Drawer.Navigator>
   );
 };

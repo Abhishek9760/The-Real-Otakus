@@ -33,15 +33,13 @@ function AnimeHeaderInfo({animeInfo}) {
 }
 
 const AnimeImage = styled.Image`
-  flex:1
-  opacity: 0.9;
+  flex: 1;
 `;
 
 const Wrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  background-color: rgba(255, 255, 255, 0.759);
-  margin-bottom: 10px;
+  margin: 10px 0;
 `;
 
 const InfoWrapper = styled.View`

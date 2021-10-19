@@ -8,7 +8,7 @@ function VideoQualityItem({text, icon, color, onPress}) {
     <Wrapper>
       <Button
         labelStyle={styles.labelStyle}
-        contentStyle={{alignSelf: 'flex-start', marginLeft: '10%'}}
+        contentStyle={styles.contentStyle}
         color={color}
         icon={icon}
         mode="link"
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   labelStyle: {
     fontSize: 16,
   },
+  contentStyle: {alignSelf: 'flex-start', marginLeft: '10%'},
 });
 
 export default VideoQualityItem;

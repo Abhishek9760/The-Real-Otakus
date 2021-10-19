@@ -9,8 +9,9 @@ import {
   Dialog,
   Card,
   Badge,
+  Text,
 } from 'react-native-paper';
-import {Dimensions, FlatList, Text} from 'react-native';
+import {Dimensions, FlatList} from 'react-native';
 import Modal from 'react-native-modal';
 import {useNavigation} from '@react-navigation/native';
 import {inRange, findLink} from '../../utils';
@@ -64,6 +65,8 @@ function AnimeEpisodesDialogList({totalEp, animeEpisodes}) {
         )}
       </Wrapper>
       <Modal
+        animationIn="slideInRight"
+        animationOut="slideOutLeft"
         hideModalContentWhileAnimating
         useNativeDriver
         isVisible={showSingleEpModal}
@@ -99,6 +102,8 @@ function AnimeEpisodesDialogList({totalEp, animeEpisodes}) {
         </Card>
       </Modal>
       <Modal
+        animationIn="slideInLeft"
+        animationOut="slideOutRight"
         propagateSwipe
         useNativeDriver
         hideModalContentWhileAnimating={true}

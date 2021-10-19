@@ -1,8 +1,7 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Text, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
-import {Colors} from 'react-native-paper';
 
 function GenreListItem({item}) {
   const navigation = useNavigation();
@@ -20,8 +19,8 @@ function GenreListItem({item}) {
 
 const Wrapper = styled.View`
   padding: 8px;
-  background-color: ${Colors.deepPurple600};
-  border: 1px solid ${Colors.deepPurple100};
+  background-color: ${props => props.theme.card.BG_COLOR};
+  border: 1px solid ${props => props.theme.card.BORDER_COLOR};
   margin: 1px;
   height: 80px;
   width: 85px;

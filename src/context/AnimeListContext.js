@@ -5,7 +5,6 @@ export const AnimeListContext = createContext();
 
 export const AnimeListContextProvider = ({children}) => {
   const [animeList, setAnimeList] = useState([]);
-  const [animeListModal, setAnimeListModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -37,8 +36,6 @@ export const AnimeListContextProvider = ({children}) => {
         getAnime,
         loading,
         error,
-        animeListModal,
-        setAnimeListModal,
         reset,
       }}>
       {children}

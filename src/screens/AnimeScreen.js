@@ -16,28 +16,18 @@ function AnimeScreen({route}) {
 
   return (
     <Container>
-      <Backdrop>
-        {loading ? (
-          <TryAgain reload={() => getAnimeInfo(source)} loading={loading} />
-        ) : (
-          <AnimeDetail />
-        )}
-      </Backdrop>
+      {loading ? (
+        <TryAgain reload={() => getAnimeInfo(source)} loading={loading} />
+      ) : (
+        <AnimeDetail />
+      )}
     </Container>
   );
 }
 
-const Backdrop = styled.View`
+const Container = styled.View`
   flex: 1;
-  background-color: rgba(255, 255, 255, 0.9);
   justify-content: center;
-`;
-
-const Container = styled.ImageBackground.attrs({
-  source: require('../../assets/images/naruto.jpg'),
-  resizeMode: 'cover',
-})`
-  flex: 1;
 `;
 
 export default AnimeScreen;

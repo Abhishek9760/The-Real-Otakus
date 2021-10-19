@@ -3,9 +3,11 @@ import {Searchbar} from 'react-native-paper';
 
 import styled from 'styled-components/native';
 import {SearchContext} from '../context/SearchContext';
+import {useNavigation} from '@react-navigation/native';
 
 const Search = forwardRef((props, ref) => {
   const {query, setQuery, submit} = useContext(SearchContext);
+  const navigation = useNavigation();
 
   return (
     <Container>
@@ -14,7 +16,10 @@ const Search = forwardRef((props, ref) => {
         placeholder="SEARCH"
         value={query}
         onChangeText={setQuery}
-        onSubmitEditing={submit}
+        onSubmitEditing={() => {
+          submit();
+          navigation.navigate('search');
+        }}
       />
     </Container>
   );

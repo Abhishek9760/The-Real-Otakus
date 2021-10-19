@@ -1,15 +1,12 @@
 import React, {useContext} from 'react';
 import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
-import {Colors} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
-import {AnimeListContext} from '../context/AnimeListContext';
 import {SelectedAnimeContext} from '../context/SelectedAnimeContext';
 import {AnimeDetailContext} from '../context/AnimeDetailContext';
 
 function AnimeItem({anime}) {
   const navigation = useNavigation();
-  const {setAnimeListModal} = useContext(AnimeListContext);
   const {setSelectedAnime} = useContext(SelectedAnimeContext);
   const {getAnimeInfo} = useContext(AnimeDetailContext);
 
@@ -17,7 +14,6 @@ function AnimeItem({anime}) {
     <Card
       onPress={() => {
         setSelectedAnime(anime);
-        setAnimeListModal(false);
         getAnimeInfo(anime.source);
         navigation.navigate('anime', {source: anime.source});
       }}>
@@ -65,10 +61,10 @@ const CardText = styled.Text`
 
 const CardWrapper = styled.View`
   flex: 1;
-  background-color: ${Colors.deepPurple600};
+  background-color: ${props => props.theme.card.BG_COLOR};
+  border: 1px solid ${props => props.theme.card.BORDER_COLOR};
   align-items: center;
   border-radius: 10px;
-  border: 1px solid ${Colors.deepPurple900};
   overflow: hidden;
   elevation: 5;
 `;

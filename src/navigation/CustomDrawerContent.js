@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import SafeArea from '../components/utils/SafeArea';
 import styled from 'styled-components/native';
@@ -6,12 +6,15 @@ import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import {DrawerContentScrollView} from '@react-navigation/drawer';
+import {Switch} from 'react-native-paper';
+import {ThemeContext} from '../context/ThemeContext';
 
 function CustomDrawerContent(props) {
+  const {theme, toggleTheme} = useContext(ThemeContext);
   const getBackground = i => {
     const index = props.navigation.getState().index;
     return {
-      backgroundColor: index === i ? 'rgba(69, 39, 160, .5)' : 'rgba(0,0,0,.5)',
+      backgroundColor: index === i ? theme.drawer.ACTIVE_COLOR : 'transparent',
     };
   };
 
@@ -26,27 +29,30 @@ function CustomDrawerContent(props) {
           <DrawerContentScrollView {...props}>
             <DrawerItemView
               style={getBackground(0)}
-              onPress={() =>
-                props.navigation.navigate('Home', {screen: 'home'})
-              }>
-              <Icon name="home" size={25} color="#fff" />
+              onPress={() => props.navigation.navigate('Home')}>
+              <Icon name="home" size={25} color={theme.drawer.ICON_COLOR} />
               <DrawerItemLabel>Home</DrawerItemLabel>
             </DrawerItemView>
-
             <DrawerItemView
               style={getBackground(1)}
-              onPress={() =>
-                props.navigation.navigate('Genre', {screen: 'genre'})
-              }>
-              <Icon name="grid" size={25} color="#fff" />
+              onPress={() => props.navigation.navigate('Genre')}>
+              <Icon name="grid" size={25} color={theme.drawer.ICON_COLOR} />
               <DrawerItemLabel>All Genre</DrawerItemLabel>
             </DrawerItemView>
-
             <DrawerItemView
               style={getBackground(2)}
               onPress={() => props.navigation.navigate('About')}>
-              <Icon name="info" size={25} color="#fff" />
+              <Icon name="info" size={25} color={theme.drawer.ICON_COLOR} />
               <DrawerItemLabel>About</DrawerItemLabel>
+            </DrawerItemView>
+            <DrawerItemView>
+              <DrawerItemLabel>Theme</DrawerItemLabel>
+              <Switch
+                color="#9145dd"
+                active
+                value={theme.mode === 'dark'}
+                onValueChange={toggleTheme}
+              />
             </DrawerItemView>
           </DrawerContentScrollView>
 
@@ -72,13 +78,13 @@ const AppLogo = styled.Image.attrs({
 
 const DrawerBackground = styled.View`
   flex: 1;
-  background-color: #eee;
+  background-color: ${props => props.theme.PRIMARY_BG_COLOR};
 `;
 
 const DrawerItemLabel = styled.Text`
   font-family: 'Wabene';
   margin-left: 16px;
-  color: #fff;
+  color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   letter-spacing: 3px;
 `;
 
@@ -92,7 +98,7 @@ const DrawerItemView = styled.TouchableOpacity`
 
 const DrawerView = styled.View`
   flex: 1;
-  background-color: rgba(255, 255, 255, 0.8);
+  /* background-color: rgba(255, 255, 255, 0.8); */
   padding-top: 10px;
 `;
 
