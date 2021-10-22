@@ -7,10 +7,12 @@ export const lightTheme = {
   PRIMARY_TEXT_COLOR: '#000',
   SECONDARY_TEXT_COLOR: '#542e79',
   TERTIARY_BG_COLOR: '#2e195e',
+  NAV_COLOR: '#ececec',
   drawer: {
-    ACTIVE_COLOR: '#9885c3',
+    ACTIVE_COLOR: 'rgb(146, 92, 255)',
     ICON_COLOR: '#000000',
     BG_COLOR: 'hsl(258, 57%, 29%)',
+    THEME_ICON_COLOR: '#7700ff',
   },
   card: {
     BG_COLOR: '#512da8',
@@ -28,10 +30,12 @@ export const darkTheme = {
   PRIMARY_TEXT_COLOR: '#ffffff',
   SECONDARY_TEXT_COLOR: '#eee',
   TERTIARY_BG_COLOR: '#1a1a1a',
+  NAV_COLOR: '#131313',
   drawer: {
-    ACTIVE_COLOR: '#231448',
+    ACTIVE_COLOR: 'hsl(54, 100%, 32%)',
     ICON_COLOR: '#ffffff',
     BG_COLOR: 'hsl(0, 0%, 16%)',
+    THEME_ICON_COLOR: '#ffe600',
   },
   card: {
     BG_COLOR: 'hsl(254, 20%, 20%)',

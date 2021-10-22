@@ -1,14 +1,25 @@
 import React, {useContext} from 'react';
-import {StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Image, TouchableOpacity, Animated} from 'react-native';
 import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 import {SelectedAnimeContext} from '../context/SelectedAnimeContext';
 import {AnimeDetailContext} from '../context/AnimeDetailContext';
 
-function AnimeItem({anime}) {
+function AnimeItem({anime, index, scrollY}) {
   const navigation = useNavigation();
   const {setSelectedAnime} = useContext(SelectedAnimeContext);
   const {getAnimeInfo} = useContext(AnimeDetailContext);
+  const ITEM_SIZE = 65;
+  const inputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 4)];
+  const opacityInputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 3)];
+  const scale = scrollY.interpolate({
+    inputRange,
+    outputRange: [1, 1, 1, 0.5],
+  });
+  const opacity = scrollY.interpolate({
+    inputRange: opacityInputRange,
+    outputRange: [1, 1, 1, 0.5],
+  });
 
   return (
     <Card
@@ -17,7 +28,7 @@ function AnimeItem({anime}) {
         getAnimeInfo(anime.source);
         navigation.navigate('anime', {source: anime.source});
       }}>
-      <CardWrapper>
+      <CardWrapper style={{transform: [{scale}], opacity}}>
         <Image
           style={styles.image}
           source={{
@@ -48,18 +59,17 @@ const Card = styled(TouchableOpacity)`
   flex: 0.33;
   flex-direction: column;
   align-items: center;
-  position: relative;
   margin: 10px 0;
 `;
 
 const CardText = styled.Text`
-  flex-shrink: 1;
   font-size: 14px;
   color: #fff;
   width: 90px;
+  font-weight: bold;
 `;
 
-const CardWrapper = styled.View`
+const CardWrapper = styled(Animated.View)`
   flex: 1;
   background-color: ${props => props.theme.card.BG_COLOR};
   border: 1px solid ${props => props.theme.card.BORDER_COLOR};
@@ -69,16 +79,9 @@ const CardWrapper = styled.View`
   elevation: 5;
 `;
 
-// const EpisodesBadge = styled(Badge).attrs({
-//   size: 20,
-// })`
-//   position: absolute;
-//   top: -5%;
-//   right: -5%;
-// `;
-
 const CardContent = styled.View`
   padding: 10px 0;
+  height: 55px;
 `;
 
 export default AnimeItem;

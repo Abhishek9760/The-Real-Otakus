@@ -1,6 +1,7 @@
 import React, {createContext, useState, useEffect} from 'react';
 import {lightTheme, darkTheme} from '../Theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 export const ThemeContext = createContext();
 
@@ -8,11 +9,14 @@ export const ThemeContextProvider = ({children}) => {
   const [theme, setTheme] = useState(lightTheme);
 
   useEffect(() => {
-    getTheme().then(data => {
-      if (data.mode !== theme.mode) {
-        setTheme(data);
-      }
-    });
+    getTheme()
+      .then(data => {
+        if (data && data.mode !== theme.mode) {
+          setTheme(data);
+          changeNavigationBarColor(data.NAV_COLOR);
+        }
+      })
+      .catch(err => console.log(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -39,9 +43,11 @@ export const ThemeContextProvider = ({children}) => {
     if (theme.mode === 'light') {
       setTheme(darkTheme);
       storeTheme(darkTheme);
+      changeNavigationBarColor(darkTheme.NAV_COLOR);
     } else {
       setTheme(lightTheme);
       storeTheme(lightTheme);
+      changeNavigationBarColor(lightTheme.NAV_COLOR);
     }
   };
   return (

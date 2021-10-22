@@ -1,14 +1,21 @@
 import React from 'react';
-import {FlatList, StyleSheet} from 'react-native';
+import {Animated, StyleSheet} from 'react-native';
 import styled from 'styled-components';
 import AnimeItem from './AnimeItem';
 
 function AnimeList({animeList, title, footer}) {
+  const scrollY = React.useRef(new Animated.Value(0)).current;
   return (
     <Container>
-      <FlatList
+      <Animated.FlatList
         data={animeList}
-        renderItem={({item}) => <AnimeItem anime={item} />}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: true},
+        )}
+        renderItem={({item, index}) => (
+          <AnimeItem anime={item} index={index} scrollY={scrollY} />
+        )}
         numColumns={3}
         contentContainerStyle={FlatListStyles.container}
         keyExtractor={item => item.name}

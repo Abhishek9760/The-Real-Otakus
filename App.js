@@ -3,7 +3,6 @@ import {Alert, BackHandler, Linking} from 'react-native';
 import {AnimeDetailContextProvider} from './src/context/AnimeDetailContext';
 import {AnimeListContextProvider} from './src/context/AnimeListContext';
 import {PlayerContextProvider} from './src/context/PlayerContext';
-import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import Orientation from 'react-native-orientation';
 import {SearchContextProvider} from './src/context/SearchContext';
 import {SelectedAnimeContextProvider} from './src/context/SelectedAnimeContext';
@@ -31,8 +30,8 @@ const updateNeeded = () => {
       {
         text: 'Update',
         onPress: () => {
-          BackHandler.exitApp();
           Linking.openURL('https://therealotakus.live');
+          BackHandler.exitApp();
         },
         style: 'default',
       },
@@ -42,14 +41,6 @@ const updateNeeded = () => {
 
 const App = () => {
   useEffect(() => {
-    const changeColor = async () => {
-      try {
-        await changeNavigationBarColor('#ffffff');
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    changeColor();
     Orientation.lockToPortrait();
     SplashScreen.hide();
     getData().then(data => {
@@ -73,7 +64,6 @@ const App = () => {
       }
     });
   }, []);
-
   return (
     <ThemeContextProvider>
       <PopularAnimeContextProvider>

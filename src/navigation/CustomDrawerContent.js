@@ -27,11 +27,12 @@ function CustomDrawerContent(props) {
             source={require('../../assets/images/logo.jpg')}
           />
           <DrawerContentScrollView {...props}>
+            <DrawerSectionLabel>Welcome</DrawerSectionLabel>
             <DrawerItemView
               style={getBackground(0)}
               onPress={() => props.navigation.navigate('Home')}>
               <Icon name="home" size={25} color={theme.drawer.ICON_COLOR} />
-              <DrawerItemLabel>Home</DrawerItemLabel>
+              <DrawerItemLabel style>Home</DrawerItemLabel>
             </DrawerItemView>
             <DrawerItemView
               style={getBackground(1)}
@@ -45,8 +46,13 @@ function CustomDrawerContent(props) {
               <Icon name="info" size={25} color={theme.drawer.ICON_COLOR} />
               <DrawerItemLabel>About</DrawerItemLabel>
             </DrawerItemView>
+            <DrawerSectionLabel>Choose Theme</DrawerSectionLabel>
             <DrawerItemView>
-              <DrawerItemLabel>Theme</DrawerItemLabel>
+              <Icon
+                name={theme.mode === 'light' ? 'sun' : 'moon'}
+                size={30}
+                color={theme.drawer.THEME_ICON_COLOR}
+              />
               <Switch
                 color="#9145dd"
                 active
@@ -86,6 +92,16 @@ const DrawerItemLabel = styled.Text`
   margin-left: 16px;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
   letter-spacing: 3px;
+`;
+
+const DrawerSectionLabel = styled.Text`
+  font-family: 'Paladise Script';
+  color: ${props => props.theme.SECONDARY_TEXT_COLOR};
+  letter-spacing: 3px;
+  margin: 16px 0 16px 16px;
+  font-size: 20px;
+  border-bottom-width: 1px;
+  border-bottom-color: #ccc;
 `;
 
 const DrawerItemView = styled.TouchableOpacity`
