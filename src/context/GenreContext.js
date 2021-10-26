@@ -9,7 +9,6 @@ export const GenreContextProvider = ({children}) => {
   const [genreListLoading, setGenreListLoading] = useState(false);
   const [genreAnimeListLoading, setGenreAnimeListLoading] = useState(false);
   const [error, setError] = useState('');
-  // const [genreListError, setGenreListError] = useState(false);
 
   const reset = () => setGenreAnimeList([]);
 
@@ -23,6 +22,7 @@ export const GenreContextProvider = ({children}) => {
         setGenreListLoading(false);
       })
       .catch(err => {
+        reset();
         setError(err.message);
         showToast(err.message);
         console.log(err);

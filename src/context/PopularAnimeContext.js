@@ -24,6 +24,7 @@ export const PopularAnimeContextProvider = ({children}) => {
         setError('');
       })
       .catch(err => {
+        setPopular([]);
         setLoading(false);
         console.log(err);
         setError(err.message);

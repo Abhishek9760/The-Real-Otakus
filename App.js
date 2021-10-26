@@ -21,6 +21,7 @@ import VersionInfo from 'react-native-version-info';
 import lodash from 'lodash';
 import {ThemeContextProvider} from './src/context/ThemeContext';
 import Index from './src/Index';
+import admob, {MaxAdContentRating} from '@react-native-firebase/admob';
 
 const updateNeeded = () => {
   return Alert.alert(
@@ -64,6 +65,25 @@ const App = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    admob()
+      .setRequestConfiguration({
+        // Update all future requests suitable for parental guidance
+        maxAdContentRating: MaxAdContentRating.PG,
+
+        // Indicates that you want your content treated as child-directed for purposes of COPPA.
+        tagForChildDirectedTreatment: true,
+
+        // Indicates that you want the ad request to be handled in a
+        // manner suitable for users under the age of consent.
+        tagForUnderAgeOfConsent: true,
+      })
+      .then(() => {
+        // Request config successfully set!
+      });
+  }, []);
+
   return (
     <ThemeContextProvider>
       <PopularAnimeContextProvider>

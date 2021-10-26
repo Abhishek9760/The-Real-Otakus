@@ -1,8 +1,8 @@
 import React from 'react';
-import {Colors, FAB} from 'react-native-paper';
+import {FAB, withTheme} from 'react-native-paper';
 import styled from 'styled-components/native';
 
-function TryAgain({reload, loading}) {
+function TryAgain({reload, loading, theme}) {
   return (
     <Wrapper>
       <FAB
@@ -10,8 +10,7 @@ function TryAgain({reload, loading}) {
         loading={loading}
         disabled={loading}
         icon="cached"
-        color={Colors.purpleA700}
-        style={{backgroundColor: Colors.purple100}}
+        color={theme.colors.primary}
         onPress={reload}
       />
     </Wrapper>
@@ -24,4 +23,4 @@ const Wrapper = styled.View`
   justify-content: center;
 `;
 
-export default TryAgain;
+export default withTheme(TryAgain);

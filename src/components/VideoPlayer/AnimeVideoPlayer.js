@@ -1,20 +1,13 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useContext} from 'react';
 import {Colors} from 'react-native-paper';
 import VideoPlayer from './VideoPlayer';
-import Orientation from 'react-native-orientation';
+// import Orientation from 'react-native-orientation';
 import {StatusBar} from 'react-native';
 import styled from 'styled-components/native';
 import {PlayerContext} from '../../context/PlayerContext';
 
 function AnimeVideoPlayer({url}) {
   const {paused, setPlayerVisible} = useContext(PlayerContext);
-
-  useEffect(() => {
-    Orientation.unlockAllOrientations();
-    return () => {
-      Orientation.lockToPortrait();
-    };
-  }, []);
 
   return (
     <Container>
@@ -30,7 +23,7 @@ function AnimeVideoPlayer({url}) {
         onBack={() => setPlayerVisible(false)}
         tapAnywhereToPause
         fullscreen
-        controlTimeout={3000}
+        controlTimeout={5000}
       />
     </Container>
   );

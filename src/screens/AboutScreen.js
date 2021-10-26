@@ -87,7 +87,7 @@ const VersionText = styled.Text`
 `;
 
 const HorizontalLine = styled.View`
-  background-color: #aa00ff;
+  background-color: ${props => props.theme.drawer.THEME_ICON_COLOR};
   height: 1px;
   width: 25px;
   align-self: center;

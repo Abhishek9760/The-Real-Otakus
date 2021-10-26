@@ -16,6 +16,7 @@ import {
 import padStart from 'lodash/padStart';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {IconButton} from 'react-native-paper';
+import Orientation from 'react-native-orientation';
 
 export default class VideoPlayer extends Component {
   static defaultProps = {
@@ -69,6 +70,7 @@ export default class VideoPlayer extends Component {
       currentTime: 0,
       error: false,
       duration: 0,
+      lockRotation: false,
     };
 
     /**
@@ -540,6 +542,27 @@ export default class VideoPlayer extends Component {
     }
   }
 
+  _toggleRotationLock = () => {
+    if (this.state.lockRotation) {
+      this.setState({
+        lockRotation: false,
+      });
+      Orientation.unlockAllOrientations();
+    } else {
+      // eslint-disable-next-line handle-callback-err
+      Orientation.getOrientation((err, ori) => {
+        if (ori === 'PORTRAIT') {
+          Orientation.lockToPortrait();
+        } else {
+          Orientation.lockToLandscape();
+        }
+        this.setState({
+          lockRotation: true,
+        });
+      });
+    }
+  };
+
   /**
    * Calculate the time to show in the timer area
    * based on if they want to see time remaining
@@ -720,6 +743,7 @@ export default class VideoPlayer extends Component {
   UNSAFE_componentWillMount() {
     this.initSeekPanResponder();
     this.initVolumePanResponder();
+    Orientation.unlockAllOrientations();
   }
 
   /**
@@ -763,6 +787,7 @@ export default class VideoPlayer extends Component {
   componentWillUnmount() {
     this.mounted = false;
     this.clearControlTimeout();
+    Orientation.lockToPortrait();
   }
 
   /**
@@ -942,10 +967,14 @@ export default class VideoPlayer extends Component {
     const volumeControl = this.props.disableVolume
       ? this.renderNullControl()
       : this.renderVolume();
-    const fullscreenControl = this.props.disableFullscreen
+    const fullscreenControl = this.props.disableFullScreen
       ? this.renderNullControl()
       : this.renderFullscreen();
+
     const rateControl = this.renderRateControl();
+    const lockRotation = this.props.disableRotationLock
+      ? this.renderNullControl()
+      : this.renderLockRotation();
 
     return (
       <Animated.View
@@ -962,7 +991,9 @@ export default class VideoPlayer extends Component {
           imageStyle={[styles.controls.vignette]}>
           <SafeAreaView style={styles.controls.topControlGroup}>
             {backControl}
+            {/* {lockRotation} */}
             {rateControl}
+
             <View style={styles.controls.pullRight}>
               {volumeControl}
               {fullscreenControl}
@@ -1034,6 +1065,19 @@ export default class VideoPlayer extends Component {
             this.resetControlTimeout();
           }
         }}
+      />
+    );
+  }
+
+  // LOCK ROTATION
+  renderLockRotation() {
+    return (
+      <IconButton
+        icon={
+          this.state.lockRotation ? 'screen-rotation-lock' : 'screen-rotation'
+        }
+        color="#fff"
+        onPress={this._toggleRotationLock}
       />
     );
   }
@@ -1129,6 +1173,9 @@ export default class VideoPlayer extends Component {
     const playPauseControl = this.props.disablePlayPause
       ? this.renderNullControl()
       : this.renderPlayPause();
+    // const fullscreenControl = this.props.disableFullscreen
+    //   ? this.renderNullControl()
+    //   : this.renderFullscreen();
 
     return (
       <Animated.View
@@ -1513,6 +1560,7 @@ const styles = {
       height: 28,
       marginLeft: 20,
       marginRight: 20,
+      flex: 1,
     },
     track: {
       backgroundColor: '#333',

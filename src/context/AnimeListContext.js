@@ -21,6 +21,7 @@ export const AnimeListContextProvider = ({children}) => {
         setError('');
       })
       .catch(err => {
+        setAnimeList([]);
         setLoading(false);
         setError(err.message);
         showToast(err.message);
