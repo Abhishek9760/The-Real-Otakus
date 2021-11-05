@@ -10,8 +10,9 @@ import {
   TestIds,
 } from '@react-native-firebase/admob';
 
-const adUnitId = TestIds.INTERSTITIAL;
-// : 'ca-app-pub-2910763857656833/2006741969';
+const adUnitId = __DEV__
+  ? TestIds.INTERSTITIAL
+  : 'ca-app-pub-2910763857656833/2006741969';
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   requestNonPersonalizedAdsOnly: true,
