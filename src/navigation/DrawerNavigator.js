@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {Colors, IconButton} from 'react-native-paper';
@@ -10,12 +10,13 @@ import {useNavigation} from '@react-navigation/native';
 import HomeScreen from '../screens/HomeScreen';
 import GenreScreen from '../screens/GenreScreen';
 import AboutScreen from '../screens/AboutScreen';
-import {ThemeContext} from '../context/ThemeContext';
+import ChatScreen from '../screens/ChatScreen';
+import {useSelector} from 'react-redux';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
-  const {theme} = useContext(ThemeContext);
+  const theme = useSelector(state => state.appTheme.theme);
   const navigation = useNavigation();
   return (
     <Drawer.Navigator
@@ -51,6 +52,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen name="Genre" component={GenreScreen} />
       <Drawer.Screen name="About" component={AboutScreen} />
+      <Drawer.Screen name="Chat" component={ChatScreen} />
     </Drawer.Navigator>
   );
 };

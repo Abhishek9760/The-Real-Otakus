@@ -1,17 +1,22 @@
-import React, {useContext} from 'react';
+import React, {useState} from 'react';
 import Modal from 'react-native-modal';
+import {useSelector} from 'react-redux';
 import styled from 'styled-components/native';
-import {PlayerContext} from '../../context/PlayerContext';
 import AnimeVideoPlayer from './AnimeVideoPlayer';
 import VideoQualityList from './VideoQualityList';
 
 const VideoQuality = () => {
-  const {currentUrl, playerVisible, setPlayerVisible} =
-    useContext(PlayerContext);
+  const [playerVisible, setPlayerVisible] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState('');
+  const playerData = useSelector(state => state.playerData);
 
   return (
     <Wrapper>
-      <VideoQualityList />
+      <VideoQualityList
+        setPlayerVisible={setPlayerVisible}
+        setCurrentUrl={setCurrentUrl}
+        vidUrls={playerData.vidUrls}
+      />
       <Modal
         animationIn="flipInY"
         animationOut="flipOutY"
@@ -20,7 +25,10 @@ const VideoQuality = () => {
         useNativeDriver
         statusBarTranslucent
         onBackButtonPress={() => setPlayerVisible(false)}>
-        <AnimeVideoPlayer url={currentUrl} />
+        <AnimeVideoPlayer
+          url={currentUrl}
+          setPlayerVisible={setPlayerVisible}
+        />
       </Modal>
     </Wrapper>
   );

@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {ActivityIndicator} from 'react-native-paper';
+import {useSelector} from 'react-redux';
 import styled from 'styled-components/native';
-import {ThemeContext} from '../../context/ThemeContext';
 
 function Loader() {
-  const {theme} = useContext(ThemeContext);
+  const theme = useSelector(state => state.appTheme.theme);
   return (
     <Wrapper>
       <ActivityIndicator

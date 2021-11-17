@@ -1,32 +1,32 @@
-import React, {useEffect, useContext} from 'react';
-import {PlayerContext} from '../context/PlayerContext';
+import React, {useEffect} from 'react';
 import Loader from '../components/utils/Loader';
 import VideoQuality from '../components/VideoPlayer/VideoQuality';
 import TryAgain from '../components/utils/TryAgain';
 import styled from 'styled-components/native';
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {getPlayerUrls} from '../actions/playerAction';
 
 function PlayerScreen({route}) {
   const {link} = route.params;
-  const {getVidDownloadLinks, reset, vidUrlsLoading, error} =
-    useContext(PlayerContext);
+  const dispatch = useDispatch();
+  const playerData = useSelector(state => state.playerData);
+
+  const fetchUrls = () => dispatch(getPlayerUrls(link));
 
   useEffect(() => {
     if (link) {
-      getVidDownloadLinks(link);
+      fetchUrls();
     }
-    () => reset();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [link]);
 
   return (
     <Container>
-      {vidUrlsLoading ? (
+      {playerData.loading ? (
         <Loader />
-      ) : error.length !== 0 ? (
-        <TryAgain
-          reload={() => getVidDownloadLinks(link)}
-          loading={vidUrlsLoading}
-        />
+      ) : playerData.error.length !== 0 ? (
+        <TryAgain reload={fetchUrls} loading={playerData.loading} />
       ) : (
         <VideoQuality />
       )}

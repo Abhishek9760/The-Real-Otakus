@@ -1,14 +1,13 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {StyleSheet, Image, TouchableOpacity, Animated} from 'react-native';
 import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
-import {SelectedAnimeContext} from '../context/SelectedAnimeContext';
-import {AnimeDetailContext} from '../context/AnimeDetailContext';
+import {useDispatch} from 'react-redux';
+import {setSelectedAnime} from '../actions/selectedAnimeAction';
 
 function AnimeItem({anime, index, scrollY}) {
   const navigation = useNavigation();
-  const {setSelectedAnime} = useContext(SelectedAnimeContext);
-  const {getAnimeInfo} = useContext(AnimeDetailContext);
+  const dispatch = useDispatch();
   const ITEM_SIZE = 65;
   const inputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 4)];
   const opacityInputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 3)];
@@ -24,8 +23,7 @@ function AnimeItem({anime, index, scrollY}) {
   return (
     <Card
       onPress={() => {
-        setSelectedAnime(anime);
-        getAnimeInfo(anime.source);
+        dispatch(setSelectedAnime(anime));
         navigation.navigate('anime', {source: anime.source});
       }}>
       <CardWrapper style={{transform: [{scale}], opacity}}>

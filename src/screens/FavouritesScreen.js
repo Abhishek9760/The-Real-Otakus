@@ -1,14 +1,14 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import AnimeList from '../components/AnimeList';
 import styled from 'styled-components/native';
-import {FavouritesContext} from '../context/FavouritesContext';
 import LottieView from 'lottie-react-native';
 import {Paragraph} from 'react-native-paper';
 import CloseButton from '../components/utils/CloseButton';
+import {useSelector} from 'react-redux';
 
 function FavouritesScreen() {
-  const {favourites} = useContext(FavouritesContext);
+  const favourites = useSelector(state => state.favouritesAnime.favourites);
   return (
     <Container>
       {Object.keys(favourites).length ? (

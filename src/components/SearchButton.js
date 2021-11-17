@@ -1,12 +1,11 @@
-import React, {useContext, useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {IconButton} from 'react-native-paper';
 import Modal from 'react-native-modal';
 import Search from './Search';
 import styled from 'styled-components/native';
-import {SearchContext} from '../context/SearchContext';
 
 function SearchButton() {
-  const {showSearch, setShowSearch} = useContext(SearchContext);
+  const [showSearch, setShowSearch] = useState(false);
   const inpRef = useRef();
 
   const hideModal = () => setShowSearch(false);
@@ -23,7 +22,11 @@ function SearchButton() {
           inpRef.current.focus();
         }}>
         <ModalContentView>
-          <Search ref={inpRef} />
+          <Search
+            ref={inpRef}
+            showSearch={showSearch}
+            setShowSearch={setShowSearch}
+          />
         </ModalContentView>
       </Modal>
       <IconButton

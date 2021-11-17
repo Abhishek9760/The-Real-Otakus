@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 
 import SafeArea from '../components/utils/SafeArea';
 import styled from 'styled-components/native';
@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {Button, Divider, Switch} from 'react-native-paper';
-import {ThemeContext} from '../context/ThemeContext';
 import {Dimensions, Linking, StyleSheet} from 'react-native';
 import Animated, {
   interpolateColor,
@@ -16,6 +15,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {lightTheme, darkTheme} from '../Theme';
+import {useDispatch, useSelector} from 'react-redux';
+import {toggleTheme} from '../actions/appThemeAction';
 
 const DRAWER_ITEMS = [
   {route: 'Home', label: 'Home', icon: 'home', outlineIcon: 'home-outline'},
@@ -31,10 +32,17 @@ const DRAWER_ITEMS = [
     icon: 'information-circle',
     outlineIcon: 'information-circle-outline',
   },
+  {
+    route: 'Chat',
+    label: 'Chat',
+    icon: 'chatbubbles',
+    outlineIcon: 'chatbubbles-outline',
+  },
 ];
 
 function CustomDrawerContent(props) {
-  const {theme, toggleTheme} = useContext(ThemeContext);
+  const theme = useSelector(state => state.appTheme.theme);
+  const dispatch = useDispatch();
 
   const progress = useDerivedValue(() => {
     return theme.mode === 'dark' ? withTiming(1) : withTiming(0);
@@ -107,7 +115,7 @@ function CustomDrawerContent(props) {
                 true: theme.drawer.ACTIVE_COLOR,
               }}
               value={theme.mode === 'dark'}
-              onValueChange={toggleTheme}
+              onValueChange={() => dispatch(toggleTheme())}
             />
           </DrawerItemView>
           <Divider />

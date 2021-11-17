@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import AnimeScreen from '../screens/AnimeScreen';
 import PlayerScreen from '../screens/PlayerScreen';
@@ -6,12 +6,12 @@ import FavouritesScreen from '../screens/FavouritesScreen';
 import GenreAnimeListScreen from '../screens/GenreAnimeListScreen';
 import {DrawerNavigator} from './DrawerNavigator';
 import SearchScreen from '../screens/SearchScreen';
-import {ThemeContext} from '../context/ThemeContext';
+import {useSelector} from 'react-redux';
 
 const Stack = createStackNavigator();
 
 const MainStackNavigator = () => {
-  const {theme} = useContext(ThemeContext);
+  const theme = useSelector(state => state.appTheme.theme);
   return (
     <Stack.Navigator
       initialRouteName="home"

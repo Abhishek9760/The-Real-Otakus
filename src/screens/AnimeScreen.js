@@ -1,23 +1,34 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
-import {AnimeDetailContext} from '../context/AnimeDetailContext';
 import AnimeDetail from '../components/AnimeDetail/AnimeDetail';
 import TryAgain from '../components/utils/TryAgain';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  clearAnimeInfo,
+  getAnimeInfo,
+  setAnimeDetailsLoading,
+} from '../actions/animeDetailAction';
 
 function AnimeScreen({route}) {
   const {source} = route.params;
-  const {setLoading, getAnimeInfo, loading} = useContext(AnimeDetailContext);
+  const dispatch = useDispatch();
+  const animeDetails = useSelector(state => state.animeDetails);
+
+  const fetchAnime = () => dispatch(getAnimeInfo(source));
 
   useEffect(() => {
-    getAnimeInfo(source);
-    () => setLoading(false);
+    fetchAnime();
+    return () => {
+      dispatch(clearAnimeInfo());
+      dispatch(setAnimeDetailsLoading(true));
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Container>
-      {loading ? (
-        <TryAgain reload={() => getAnimeInfo(source)} loading={loading} />
+      {animeDetails.loading || animeDetails.error.length > 0 ? (
+        <TryAgain reload={fetchAnime} loading={animeDetails.loading} />
       ) : (
         <AnimeDetail />
       )}

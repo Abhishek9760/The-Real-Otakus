@@ -1,12 +1,9 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import {List} from 'react-native-paper';
-import FavoritesButton from '../FavoritesButton';
-import {SelectedAnimeContext} from '../../context/SelectedAnimeContext';
+import FavouritesButton from '../FavouritesButton';
 
-function AnimeHeaderInfo({animeInfo}) {
-  // const {anime_info} = anime;
-  const {selectedAnime} = useContext(SelectedAnimeContext);
+function AnimeHeaderInfo({animeInfo, selectedAnime}) {
   return (
     <Wrapper>
       <InfoWrapper>
@@ -27,7 +24,7 @@ function AnimeHeaderInfo({animeInfo}) {
           description={animeInfo.other_names || 'Not Found'}
         />
       </InfoWrapper>
-      <FavoritesButton anime={selectedAnime} />
+      <FavouritesButton anime={selectedAnime} />
     </Wrapper>
   );
 }

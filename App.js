@@ -1,15 +1,8 @@
 import React, {useEffect} from 'react';
 import {Alert, BackHandler, Linking} from 'react-native';
-import {AnimeDetailContextProvider} from './src/context/AnimeDetailContext';
-import {AnimeListContextProvider} from './src/context/AnimeListContext';
-import {PlayerContextProvider} from './src/context/PlayerContext';
 import Orientation from 'react-native-orientation';
-import {SearchContextProvider} from './src/context/SearchContext';
-import {SelectedAnimeContextProvider} from './src/context/SelectedAnimeContext';
 import SplashScreen from 'react-native-splash-screen';
-import {FavouritesContextProvider} from './src/context/FavouritesContext';
-import {PopularAnimeContextProvider} from './src/context/PopularAnimeContext';
-import {GenreContextProvider} from './src/context/GenreContext';
+import {PersistGate} from 'redux-persist/integration/react';
 import {
   getAppInfo,
   getBannerShow,
@@ -19,9 +12,10 @@ import {
 } from './src/utils';
 import VersionInfo from 'react-native-version-info';
 import lodash from 'lodash';
-import {ThemeContextProvider} from './src/context/ThemeContext';
 import Index from './src/Index';
-import admob, {MaxAdContentRating} from '@react-native-firebase/admob';
+import {Provider} from 'react-redux';
+import configureStore from './src/store/configureStore';
+import Loader from './src/components/utils/Loader';
 
 const updateNeeded = () => {
   return Alert.alert(
@@ -39,6 +33,8 @@ const updateNeeded = () => {
     ],
   );
 };
+
+const {store, persistor} = configureStore();
 
 const App = () => {
   useEffect(() => {
@@ -66,44 +62,30 @@ const App = () => {
     });
   }, []);
 
-  useEffect(() => {
-    admob()
-      .setRequestConfiguration({
-        // Update all future requests suitable for parental guidance
-        maxAdContentRating: MaxAdContentRating.PG,
+  // useEffect(() => {
+  //   admob()
+  //     .setRequestConfiguration({
+  //       // Update all future requests suitable for parental guidance
+  //       maxAdContentRating: MaxAdContentRating.PG,
 
-        // Indicates that you want your content treated as child-directed for purposes of COPPA.
-        tagForChildDirectedTreatment: true,
+  //       // Indicates that you want your content treated as child-directed for purposes of COPPA.
+  //       tagForChildDirectedTreatment: true,
 
-        // Indicates that you want the ad request to be handled in a
-        // manner suitable for users under the age of consent.
-        tagForUnderAgeOfConsent: true,
-      })
-      .then(() => {
-        // Request config successfully set!
-      });
-  }, []);
+  //       // Indicates that you want the ad request to be handled in a
+  //       // manner suitable for users under the age of consent.
+  //       tagForUnderAgeOfConsent: true,
+  //     })
+  //     .then(() => {
+  //       // Request config successfully set!
+  //     });
+  // }, []);
 
   return (
-    <ThemeContextProvider>
-      <PopularAnimeContextProvider>
-        <AnimeListContextProvider>
-          <SearchContextProvider>
-            <GenreContextProvider>
-              <SelectedAnimeContextProvider>
-                <FavouritesContextProvider>
-                  <AnimeDetailContextProvider>
-                    <PlayerContextProvider>
-                      <Index />
-                    </PlayerContextProvider>
-                  </AnimeDetailContextProvider>
-                </FavouritesContextProvider>
-              </SelectedAnimeContextProvider>
-            </GenreContextProvider>
-          </SearchContextProvider>
-        </AnimeListContextProvider>
-      </PopularAnimeContextProvider>
-    </ThemeContextProvider>
+    <Provider store={store}>
+      <PersistGate loading={<Loader />} persistor={persistor}>
+        <Index />
+      </PersistGate>
+    </Provider>
   );
 };
 

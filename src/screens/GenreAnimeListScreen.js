@@ -1,59 +1,53 @@
-import React, {useEffect, useContext, useState} from 'react';
-import {GenreContext} from '../context/GenreContext';
+import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import TryAgain from '../components/utils/TryAgain';
 import AnimeList from '../components/AnimeList';
 import {Button} from 'react-native-paper';
 import Loader from '../components/utils/Loader';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  animeGenreListAction,
+  clearGenreAnimeList,
+  getNextPage,
+} from '../actions/animeGenreAction';
 
 function GenreAnimeListScreen({route, navigation}) {
   const {item} = route.params;
-  const [page, setPage] = useState(1);
-
-  const {
-    getGenreAnimeList,
-    genreAnimeList,
-    genreAnimeListLoading,
-    reset,
-    error,
-  } = useContext(GenreContext);
+  const dispatch = useDispatch();
+  const animeGenre = useSelector(state => state.animeGenre);
 
   useEffect(() => {
     navigation.setOptions({title: item});
-    return () => {
-      reset();
-      setPage(1);
-    };
+    return () => dispatch(clearGenreAnimeList());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const fetchGenreAnimeList = () =>
+    dispatch(animeGenreListAction(item, animeGenre.currentPage));
 
   useEffect(() => {
-    getGenreAnimeList(item, page);
+    fetchGenreAnimeList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item, page]);
+  }, [item, animeGenre.currentPage]);
 
   const loadMore = () => (
     <Button
       mode="text"
-      onPress={() => setPage(page + 1)}
+      onPress={() => dispatch(getNextPage())}
       icon="progress-download"
-      loading={genreAnimeListLoading}
-      disabled={genreAnimeListLoading || genreAnimeList.length < 20}>
+      loading={animeGenre.loading}
+      disabled={animeGenre.loading || animeGenre.animeList.length < 20}>
       Load More
     </Button>
   );
 
   return (
     <Container>
-      {genreAnimeListLoading && page === 1 ? (
+      {animeGenre.loading && animeGenre.currentPage === 1 ? (
         <Loader />
-      ) : error.length !== 0 ? (
-        <TryAgain
-          reload={() => getGenreAnimeList(item)}
-          loading={genreAnimeListLoading}
-        />
+      ) : animeGenre.error.length !== 0 ? (
+        <TryAgain reload={fetchGenreAnimeList} loading={animeGenre.loading} />
       ) : (
-        <AnimeList animeList={genreAnimeList} footer={loadMore()} />
+        <AnimeList animeList={animeGenre.animeList} footer={loadMore()} />
       )}
     </Container>
   );

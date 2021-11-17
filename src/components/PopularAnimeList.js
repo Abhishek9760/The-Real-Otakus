@@ -1,45 +1,46 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Button} from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components/native';
-import {PopularAnimeContext} from '../context/PopularAnimeContext';
 import AnimeList from './AnimeList';
+import {getNextPage, getPopularAnimeList} from '../actions/animeListAction';
 import Loader from './utils/Loader';
 import TryAgain from './utils/TryAgain';
 
 function PopularAnimeList() {
-  const {getPopular, popular, error, loading, reset} =
-    useContext(PopularAnimeContext);
-  const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  const selectedData = useSelector(state => state.anime);
+  const getAnimeList = () => dispatch(getPopularAnimeList());
 
   useEffect(() => {
-    getPopular(page);
-
+    getAnimeList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => () => reset(), []);
+  }, [selectedData.currentPage]);
 
   const loadMore = () => (
     <Button
       mode="text"
-      onPress={() => setPage(page + 1)}
+      onPress={() => dispatch(getNextPage())}
       icon="progress-download"
-      loading={loading}
-      disabled={loading}>
+      loading={selectedData.loading}
+      disabled={selectedData.loading}>
       Load More
     </Button>
   );
   return (
     <Container>
-      {loading && page === 1 ? (
+      {selectedData.loading && selectedData.currentPage === 1 ? (
         <Loader />
-      ) : error.length !== 0 ? (
+      ) : selectedData.error.length !== 0 ? (
         <Wrapper>
-          <TryAgain reload={() => getPopular(1)} loading={loading} />
+          <TryAgain reload={getAnimeList} loading={selectedData.loading} />
         </Wrapper>
       ) : (
-        <AnimeList title="Popular 🔥" animeList={popular} footer={loadMore()} />
+        <AnimeList
+          title="Popular 🔥"
+          animeList={selectedData.popularAnimeList}
+          footer={loadMore()}
+        />
       )}
     </Container>
   );

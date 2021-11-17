@@ -1,14 +1,10 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Colors} from 'react-native-paper';
 import VideoPlayer from './VideoPlayer';
-// import Orientation from 'react-native-orientation';
 import {StatusBar} from 'react-native';
 import styled from 'styled-components/native';
-import {PlayerContext} from '../../context/PlayerContext';
 
-function AnimeVideoPlayer({url}) {
-  const {paused, setPlayerVisible} = useContext(PlayerContext);
-
+function AnimeVideoPlayer({url, setPlayerVisible}) {
   return (
     <Container>
       <StatusBar hidden />
@@ -17,7 +13,6 @@ function AnimeVideoPlayer({url}) {
           uri: url,
           headers: {Referer: 'https://goload.one/'},
         }}
-        paused={paused}
         seekColor={Colors.purpleA700}
         disableVolume
         onBack={() => setPlayerVisible(false)}
