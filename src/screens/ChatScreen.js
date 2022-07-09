@@ -1,7 +1,10 @@
 import React from 'react';
-import {GiftedChat, Bubble} from 'react-native-gifted-chat';
+import {GiftedChat, InputToolbar} from 'react-native-gifted-chat';
 import {socket} from '../socket';
 import {getUniqueId} from 'react-native-device-info';
+import {connect} from 'react-redux';
+import {Text} from 'react-native-paper';
+import styled from 'styled-components/native';
 
 class ChatScreen extends React.Component {
   constructor(props) {
@@ -11,147 +14,109 @@ class ChatScreen extends React.Component {
       isLoading: false,
       isTyping: false,
       loadMessages: false,
+      online: 0,
     };
   }
 
   componentDidMount() {
-    socket.emit('join-room', 'global');
-    // socket.emit('get-history');
-    // socket.on('load-old-chat', () => {
-    //   // console.log('loading messages', getUniqueId());
-    //   console.log(this.state.messages);
-    // });
+    socket.emit('get-users-count');
+    socket.on('updated-users-count', num => this.setState({online: num}));
     socket.on('new-message', msg => {
-      // if (this.state.isLoading) {
-      //   this.setState({isLoading: false});
-      // }
-      console.log('send to clients');
-      // console.log('client', messages);
-      // setMessages(p => GiftedChat.append(p, msg));
       this.setState(perviousState => ({
         messages: GiftedChat.append(perviousState.messages, msg),
       }));
     });
 
     socket.on('load-old-chat', () => {
-      console.log('loading history..', getUniqueId());
       let msgs = [...this.state.messages];
       socket.emit('show-loader');
-      socket.emit('send-message', msgs.splice(0, 16));
+      socket.emit('send-message', msgs.splice(0, 15));
     });
-
-    // socket.on('set-loader', () => this.setState({isLoading: true}));
-    socket.on('show-typing', name =>
-      this.setState({isTyping: !this.state.isTyping}),
-    );
+    socket.on('show-typing', name => this.setState({isTyping: true}));
+    socket.on('hide-typing', () => this.setState({isTyping: false}));
   }
 
   componentWillUnmount() {
     socket.disconnect();
   }
 
-  renderBubble(props) {
-    return (
-      <Bubble
-        {...props}
-        // wrapperStyle={{
-        //   left: {
-        //     backgroundColor: '#ccc',
-        //   },
-        //   // right: {
-        //   //   backgroundColor: '#fff',
-        //   // },
-        // }}
-        // textStyle={{
-        //   right: {
-        //     color: 'yellow',
-        //   },
-        // }}
-      />
-    );
-  }
-
-  // socket.emit('online-status', 1);
-  // }, []);
-
   onSend = (msg = []) => {
-    console.log(msg);
     socket.emit('send-message', msg);
+    socket.emit('stop-typing');
     this.setState(perviousState => ({
       messages: GiftedChat.append(perviousState.messages, msg),
+      isTyping: false,
     }));
   };
 
-  // renderMessage = props => {
-  //   if (this.state.messages.length !== 0) {
-  //     return <Message {...props} />;
-  //   } else {
-  //     return (
-  //       <View style={{flex: 1}}>
-  //         <Text>Hello no data found</Text>
-  //       </View>
-  //     );
-  //   }
-  // };
-
   loadEarlier = () => {
-    console.log(socket.connected);
-    if (socket.connected) {
-      this.setState({loadMessages: true});
-      this.setState({messages: []});
+    if (socket.connected && this.online > 1) {
+      this.setState({loadMessages: true, messages: []});
       socket.emit('get-history', () => this.setState({loadMessages: false}));
     }
   };
 
   setIsTyping = () => {
-    socket.emit('user-typing', getUniqueId());
-    this.setState({
-      isTyping: !this.state.isTyping,
-    });
+    if (this.state.messages.length !== 0) {
+      socket.emit('user-typing', '');
+    }
   };
 
-  // renderFooter = (name) => {
-  //   console.log(this.state.isTyping);
-  //   if (this.state.isTyping) {
-  //     return <Text>{name} is typing</Text>;
-  //   }
-  //   return null;
-  // };
+  renderInputToolbar = props => {
+    return <InputToolbar {...props} textInputStyle={{color: '#000'}} />;
+  };
 
   render() {
     return (
-      // <>
-      //   {this.state.isLoading ? (
-      //     <Loader />
-      //   ) : (
-      <GiftedChat
-        renderUsernameOnMessage
-        messages={this.state.messages}
-        renderBubble={this.renderBubble}
-        // renderFooter={this.renderFooter}
-        onSend={msg => this.onSend(msg)}
-        // renderMessage={this.renderMessage}
-        onInputTextChanged={this.setIsTyping}
-        isTyping={this.state.isTyping}
-        user={{
-          _id: getUniqueId(),
-          name: getUniqueId(),
-        }}
-        loadEarlier
-        isLoadingEarlier={this.state.loadMessages}
-        onLoadEarlier={this.loadEarlier}
-        // parsePatterns={linkStyle => [
-        //   {
-        //     pattern: /#(\w+)/,
-        //     style: {...linkStyle, color: 'lightgreen'},
-        //     onPress: props => console.log(`press on ${props}`),
-        //   },
-        // ]}
-      />
-      // )}
-      // </>
+      <>
+        {!socket.connected ? (
+          <Text>Connecting...</Text>
+        ) : (
+          <>
+            <ShowOnline>
+              <Active>{this.state.online} active</Active>
+            </ShowOnline>
+            <GiftedChat
+              renderUsernameOnMessage
+              messages={this.state.messages}
+              onSend={msg => this.onSend(msg)}
+              onInputTextChanged={this.setIsTyping}
+              isTyping={this.state.isTyping}
+              user={{
+                _id: getUniqueId(),
+                name: this.props.userChat.username,
+                avatar: this.props.userChat.profilePic,
+              }}
+              loadEarlier
+              isLoadingEarlier={this.state.loadMessages}
+              onLoadEarlier={this.loadEarlier}
+              renderInputToolbar={this.renderInputToolbar}
+            />
+          </>
+        )}
+      </>
     );
   }
 }
 
-export default ChatScreen;
+const mapStateToProps = state => {
+  const {userChat, appTheme} = state;
+  return {userChat, appTheme};
+};
+
+export default connect(mapStateToProps)(ChatScreen);
+
+const ShowOnline = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px 10px;
+  margin-top: 5px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: ${props => props.theme.CHAT_ACTIVE_COLOR};
+`;
+
+const Active = styled(Text)`
+  font-family: 'Paladise Script';
+`;

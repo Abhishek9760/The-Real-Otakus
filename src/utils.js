@@ -1,5 +1,4 @@
-import {ToastAndroid} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Alert, BackHandler, Linking, ToastAndroid} from 'react-native';
 
 export const showToast = msg => {
   ToastAndroid.show(msg, ToastAndroid.SHORT);
@@ -23,64 +22,25 @@ export const findLink = (obj, epNum) => {
   }
 };
 
-export const getAppInfo = () => {
-  return fetch('https://therealotakus.azurewebsites.net/app/info')
-    .then(res => res.json())
-    .then(data => {
-      return data;
-    })
-    .catch(err => {
-      showToast(err.message);
-      console.log(err);
-    });
+export const getRandomIntInclusive = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 };
 
-export const storeAppInfo = (apiData = null) => {
-  if (apiData) {
-    storeData(apiData);
-  } else {
-    getAppInfo().then(data => {
-      if (data) {
-        storeData(data);
-      }
-    });
-  }
-};
-
-export const storeData = async value => {
-  try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem('@app_data', jsonValue);
-  } catch (e) {
-    // saving error
-    console.log(e);
-  }
-};
-
-export const getData = async () => {
-  try {
-    const jsonValue = await AsyncStorage.getItem('@app_data');
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
-  } catch (e) {
-    // error reading value
-  }
-};
-
-export const storeBannerShow = async value => {
-  try {
-    await AsyncStorage.setItem('@banner_show', value);
-  } catch (e) {
-    // saving error
-    console.log(e);
-  }
-};
-
-export const getBannerShow = async () => {
-  try {
-    const value = await AsyncStorage.getItem('@banner_show');
-    return value;
-  } catch (e) {
-    // error reading value
-    console.log(e);
-  }
+export const updateNeeded = () => {
+  return Alert.alert(
+    'New Update Available 🎉',
+    'To continue enjoy free animes, Please update your app.',
+    [
+      {
+        text: 'Update',
+        onPress: () => {
+          Linking.openURL('https://therealotakus.live');
+          BackHandler.exitApp();
+        },
+        style: 'default',
+      },
+    ],
+  );
 };

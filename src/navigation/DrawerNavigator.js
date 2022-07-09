@@ -2,16 +2,17 @@ import React from 'react';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {Colors, IconButton} from 'react-native-paper';
+import styled from 'styled-components/native';
+
 import SearchButton from '../components/SearchButton';
 import CustomDrawerContent from './CustomDrawerContent';
-
-import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
 import HomeScreen from '../screens/HomeScreen';
 import GenreScreen from '../screens/GenreScreen';
 import AboutScreen from '../screens/AboutScreen';
 import ChatScreen from '../screens/ChatScreen';
 import {useSelector} from 'react-redux';
+import MenuButton from '../components/utils/MenuButton';
 
 const Drawer = createDrawerNavigator();
 
@@ -52,7 +53,13 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen name="Genre" component={GenreScreen} />
       <Drawer.Screen name="About" component={AboutScreen} />
-      <Drawer.Screen name="Chat" component={ChatScreen} />
+      <Drawer.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          headerRight: () => <MenuButton />,
+        }}
+      />
     </Drawer.Navigator>
   );
 };

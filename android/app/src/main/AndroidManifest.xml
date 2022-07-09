@@ -9,6 +9,8 @@
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher"
       android:allowBackup="false"
+      android:windowSoftInputMode="adjustResize"
+      android:usesCleartextTraffic="true"
       android:theme="@style/AppTheme">
 
         <activity

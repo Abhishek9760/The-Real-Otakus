@@ -3,7 +3,7 @@ import {
   DarkTheme,
   DefaultTheme,
 } from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar} from 'react-native';
 import {ThemeProvider} from 'styled-components';
 import {
@@ -12,7 +12,9 @@ import {
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
 import {MainStackNavigator} from './navigation/StackNavigator';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getAndSetAppInfo} from './actions/appInfoAction';
+import {updateNeeded} from './utils';
 
 const paperDarkTheme = {
   ...PaperDarkTheme,
@@ -34,6 +36,17 @@ const paperDefaultTheme = {
 
 const Index = () => {
   const theme = useSelector(state => state.appTheme.theme);
+  const dispatch = useDispatch();
+  const appInfo = useSelector(state => state.appInfo);
+
+  useEffect(() => {
+    dispatch(getAndSetAppInfo());
+    if (!appInfo.isUpdated) {
+      updateNeeded();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <NavigationContainer
       theme={theme.mode === 'light' ? DefaultTheme : DarkTheme}>

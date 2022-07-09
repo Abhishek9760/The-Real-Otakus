@@ -18,8 +18,8 @@ const VideoQuality = () => {
         vidUrls={playerData.vidUrls}
       />
       <Modal
-        animationIn="flipInY"
-        animationOut="flipOutY"
+        animationIn="zoomIn"
+        animationOut="zoomOut"
         style={{margin: 0}}
         isVisible={playerVisible}
         useNativeDriver

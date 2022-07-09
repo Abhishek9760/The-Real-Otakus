@@ -17,6 +17,7 @@ import Animated, {
 import {lightTheme, darkTheme} from '../Theme';
 import {useDispatch, useSelector} from 'react-redux';
 import {toggleTheme} from '../actions/appThemeAction';
+import OnlineStatus from './OnlineStatus';
 
 const DRAWER_ITEMS = [
   {route: 'Home', label: 'Home', icon: 'home', outlineIcon: 'home-outline'},
@@ -94,7 +95,12 @@ function CustomDrawerContent(props) {
                     color={theme.drawer.ICON_COLOR}
                   />
                 )}
-                label={() => <DrawerItemLabel>{item.label}</DrawerItemLabel>}
+                label={() => (
+                  <DrawerItemWrapper>
+                    <DrawerItemLabel>{item.label}</DrawerItemLabel>
+                    {item.label === 'Chat' ? <OnlineStatus /> : null}
+                  </DrawerItemWrapper>
+                )}
                 onPress={() => props.navigation.navigate(item.route)}
               />
             );
@@ -166,6 +172,12 @@ const DrawerBackground = styled(Animated.View)`
 const DrawerItemLabel = styled.Text`
   font-family: 'Wabene';
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
+`;
+
+const DrawerItemWrapper = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const DrawerSectionLabel = styled.Text`

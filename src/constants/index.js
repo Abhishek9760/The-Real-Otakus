@@ -1,4 +1,5 @@
-export const BASE_URL = 'YOUR SITE API';
+export const BASE_URL = 'https://therealotakus-api.vercel.app/';
+// export const BASE_URL = '';
 
 // POPULAR ANIME CONSTANT
 export const POPULAR_ANIME_LIST = 'POPULAR_ANIME_LIST';
@@ -47,4 +48,14 @@ export const GET_FAVOURITES = 'GET_FAVOURITES';
 export const ADD_FAVOURITES = 'ADD_FAVOURITES';
 export const REMOVE_FAVOURITES = 'REMOVE_FAVOURITES';
 
+// THEME CONSTANT
 export const TOGGLE_THEME = 'TOGGLE_THEME';
+
+// USER CHAT CONSTANT
+export const CHANGE_USER_NAME = 'CHANGE_USER_NAME';
+export const CHANGE_PROFILE_PIC = 'CHANGE_PROFILE_PIC';
+
+// APP INFO CONSTANT
+export const SET_APP_INFO = 'SET_APP_INFO';
+export const APP_UPDATED = 'APP_UPDATED';
+export const HIDE_BANNER = 'HIDE_BANNER';

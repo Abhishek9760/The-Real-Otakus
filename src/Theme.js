@@ -8,6 +8,7 @@ export const lightTheme = {
   SECONDARY_TEXT_COLOR: '#542e79',
   TERTIARY_BG_COLOR: '#2e195e',
   NAV_COLOR: '#ececec',
+  CHAT_ACTIVE_COLOR: '#ccc',
   drawer: {
     ACTIVE_COLOR: 'rgb(146, 92, 255)',
     ICON_COLOR: '#000000',
@@ -31,6 +32,7 @@ export const darkTheme = {
   SECONDARY_TEXT_COLOR: '#eee',
   TERTIARY_BG_COLOR: '#1a1a1a',
   NAV_COLOR: '#131313',
+  CHAT_ACTIVE_COLOR: '#555',
   drawer: {
     ACTIVE_COLOR: 'hsl(54, 100%, 32%)',
     ICON_COLOR: '#ffffff',

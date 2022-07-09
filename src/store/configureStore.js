@@ -11,6 +11,8 @@ import {searchReducer} from '../reducers/searchReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {favouritesReducer} from '../reducers/favouritesReducer';
 import {appThemeReducer} from '../reducers/appThemeReducer';
+import {userChatReducer} from '../reducers/userChatReducer';
+import {appInfoReducer} from '../reducers/appInfoReducer';
 
 const rootReducer = combineReducers({
   anime: animeListReducer,
@@ -20,25 +22,22 @@ const rootReducer = combineReducers({
   animeGenre: animeGenreListReducer,
   playerData: playerReducer,
   searchData: searchReducer,
+  userChat: userChatReducer,
   favouritesAnime: favouritesReducer,
   appTheme: appThemeReducer,
+  appInfo: appInfoReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['favouritesAnime', 'appTheme'],
+  whitelist: ['favouritesAnime', 'appTheme', 'userChat', 'appInfo'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// const configureStore = () => {
-//   return createStore(rootReducer, applyMiddleware(thunk));
-// };
 export default () => {
   let store = createStore(persistedReducer, applyMiddleware(thunk));
   let persistor = persistStore(store);
   return {store, persistor};
 };
-
-// export default configureStore;

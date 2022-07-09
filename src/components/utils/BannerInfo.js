@@ -1,24 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import {Image} from 'react-native';
 import {Banner} from 'react-native-paper';
-import {getBannerShow, getData, storeBannerShow} from '../../utils';
+import {useDispatch, useSelector} from 'react-redux';
+import {hideBanner} from '../../actions/appInfoAction';
 
 function BannerInfo() {
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState('');
+  const appInfo = useSelector(state => state.appInfo);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getData().then(data => {
-      if (data) {
-        getBannerShow().then(val => {
-          if (val === 'true') {
-            setVisible(true);
-          }
-        });
-        setMessage(data.message);
-      }
-    });
+    setMessage(appInfo.message);
+    if (appInfo.show === 1) {
+      setVisible(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <Banner
       visible={visible}
@@ -27,7 +26,7 @@ function BannerInfo() {
           label: 'OK',
           onPress: () => {
             setVisible(false);
-            storeBannerShow('false');
+            dispatch(hideBanner());
           },
         },
       ]}
