@@ -2,6 +2,8 @@
 #
 .DS_Store
 
+backend/node_modules/
+
 # Xcode
 #
 build/
