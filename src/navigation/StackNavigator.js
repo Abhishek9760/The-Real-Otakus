@@ -1,5 +1,8 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import AnimeScreen from '../screens/AnimeScreen';
 import PlayerScreen from '../screens/PlayerScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
@@ -18,6 +21,7 @@ const MainStackNavigator = () => {
       screenOptions={{
         headerStyle: {backgroundColor: theme.STATUS_BAR_BG_COLOR},
         headerTintColor: '#fff',
+        cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
       }}>
       <Stack.Screen
         name="home"
@@ -35,7 +39,7 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="player"
         component={PlayerScreen}
-        options={{headerTitle: 'Choose Quality'}}
+        options={{headerTitle: 'Available Streams'}}
       />
       <Stack.Screen
         name="favourite"

@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {getPlayerUrls} from '../actions/playerAction';
+import ShimmerVideoQuality from '../components/VideoPlayer/ShimmerVideoQuality';
 
 function PlayerScreen({route}) {
   const {link} = route.params;
@@ -20,14 +21,14 @@ function PlayerScreen({route}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [link]);
 
-  return (
+  return playerData.loading ? (
+    <ShimmerVideoQuality />
+  ) : playerData.error.length !== 0 ? (
     <Container>
-      {playerData.loading || playerData.error.length !== 0 ? (
-        <TryAgain reload={fetchUrls} loading={playerData.loading} />
-      ) : (
-        <VideoQuality />
-      )}
+      <TryAgain reload={fetchUrls} loading={playerData.loading} />
     </Container>
+  ) : (
+    <VideoQuality />
   );
 }
 

@@ -9,6 +9,10 @@ export const lightTheme = {
   TERTIARY_BG_COLOR: '#2e195e',
   NAV_COLOR: '#ececec',
   CHAT_ACTIVE_COLOR: '#ccc',
+  shimmer: {
+    BG_COLOR: '#E1E9EE',
+    HIGHLIGHT_COLOR: '#F2F8FC',
+  },
   drawer: {
     ACTIVE_COLOR: 'rgb(146, 92, 255)',
     ICON_COLOR: '#000000',
@@ -33,6 +37,10 @@ export const darkTheme = {
   TERTIARY_BG_COLOR: '#1a1a1a',
   NAV_COLOR: '#131313',
   CHAT_ACTIVE_COLOR: '#555',
+  shimmer: {
+    BG_COLOR: '#191a1b',
+    HIGHLIGHT_COLOR: '#777',
+  },
   drawer: {
     ACTIVE_COLOR: 'hsl(54, 100%, 32%)',
     ICON_COLOR: '#ffffff',

@@ -12,7 +12,6 @@ function VideoQualityList({setPlayerVisible, setCurrentUrl, vidUrls}) {
 
   return (
     <ScrollView>
-      <Title>Stream Links</Title>
       {vidUrls.map((item, index) => {
         const quality = item.quality;
         const url = item.stream_url;
@@ -31,10 +30,3 @@ function VideoQualityList({setPlayerVisible, setCurrentUrl, vidUrls}) {
 }
 
 export default VideoQualityList;
-
-const Title = styled.Text`
-  font-size: 20px;
-  color: ${Colors.blueGrey700};
-  font-family: 'Wabene';
-  padding: 5px 0 15px 0;
-`;

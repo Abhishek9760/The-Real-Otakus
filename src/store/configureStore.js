@@ -13,6 +13,7 @@ import {favouritesReducer} from '../reducers/favouritesReducer';
 import {appThemeReducer} from '../reducers/appThemeReducer';
 import {userChatReducer} from '../reducers/userChatReducer';
 import {appInfoReducer} from '../reducers/appInfoReducer';
+import SplashScreen from 'react-native-splash-screen';
 
 const rootReducer = combineReducers({
   anime: animeListReducer,
@@ -34,10 +35,14 @@ const persistConfig = {
   whitelist: ['favouritesAnime', 'appTheme', 'userChat', 'appInfo'],
 };
 
+const onBeforeLoad = async () => {
+  await SplashScreen.hide();
+};
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default () => {
   let store = createStore(persistedReducer, applyMiddleware(thunk));
-  let persistor = persistStore(store);
+  let persistor = persistStore(store, null, onBeforeLoad);
   return {store, persistor};
 };

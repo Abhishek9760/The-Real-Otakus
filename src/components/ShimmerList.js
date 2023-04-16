@@ -2,8 +2,10 @@ import {FlatList, StyleSheet} from 'react-native';
 import React from 'react';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import styled from 'styled-components';
+import {useSelector} from 'react-redux';
 
 const ShimmerList = ({title, itemsNum}) => {
+  const theme = useSelector(state => state.appTheme.theme);
   return (
     <SkeletonContainer>
       <FlatList
@@ -11,7 +13,12 @@ const ShimmerList = ({title, itemsNum}) => {
         ListHeaderComponent={title ? <ListTitle>{title}</ListTitle> : null}
         renderItem={({_, index}) => {
           return (
-            <SkeletonPlaceholder key={index} animation="shimmer">
+            <SkeletonPlaceholder
+              key={index}
+              animation="shimmer"
+              borderRadius={5}
+              backgroundColor={theme.shimmer.BG_COLOR}
+              highlightColor={theme.shimmer.HIGHLIGHT_COLOR}>
               <SkeletonPlaceholder.Item
                 flexDirection="column"
                 marginVertical={10}
